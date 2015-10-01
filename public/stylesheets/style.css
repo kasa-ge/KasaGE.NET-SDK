@@ -1,0 +1,81 @@
+@font-face {
+    font-family: BpgNinoMtavruli_Bold;
+    src: url('../fonts/bpg_nino_mtavruli_bold.otf');
+}
+@font-face {
+    font-family: BpgNinoMtavruli;
+    src: url('../fonts/BpgNinoMtavruli.ttf');
+}
+@font-face {
+    font-family: DejaVuSans;
+    src: url('../fonts/DejaVuSans.ttf');
+}
+@font-face {
+    font-family: DejaVuSans_Bold;
+    src: url('../fonts/DejaVuSans-Bold.ttf');
+}
+
+body {
+    padding-top: 20px;
+    height:100%;
+}
+
+html {
+    height:100%;
+}
+
+.panel-heading{
+    cursor: pointer;
+    width: 100%;
+}
+
+.font-dejavu {
+    font-family: DejaVuSans,sans-serif;
+}
+.font-dejavu-bold{
+    font-family: DejaVuSans_Bold,sans-serif;
+}
+.font-bpg-mtavruli{
+    font-family: BpgNinoMtavruli,sans-serif;
+}
+.font-bpg-mtavruli-bold{
+    font-family: BpgNinoMtavruli_Bold,sans-serif;
+}
+
+.wrapper {
+    min-height:100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom:-90px;
+}
+
+.footer-push {
+    clear:both;
+    height:90px;
+}
+
+footer {
+    color: white;
+    background:#0F5395;
+    margin-top:0px;
+    padding-top:10px;
+    padding-right:0px;
+    height:90px;
+}
+footer h4 {
+    text-align: right;
+    margin: 20px 20px;
+}
+
+.servisi {
+    border:1px solid #ddd;
+    border-radius:4px;
+    margin-bottom: 10px;
+    padding:10px;
+}
+.servisi-link {
+    margin-left: 10px;
+}
+.text-bold {
+    font-weight: bold;
+}

@@ -1,0 +1,26 @@
+extends layout
+block body
+	div.container
+		div(style="padding:5px;")
+			img(src="/img/logo.png",style="max-width:150px;margin-top:-9px;")
+			span.pull-right
+				label(style="color:red") ცხელი ხაზი: 032 245 45 42
+		div.navbar.navbar-default.font-bpg-mtavruli-bold
+			//div.navbar-header
+				a.navbar-brand(href='/')
+					img(src="/img/logo.JPG",style="max-width:130px;margin-top:-9px;")
+			ul.nav.navbar-nav
+				li
+					a(href='/') მთავარი
+				li
+					a(href='/produktebi') პროდუქტები
+				li
+					a(href='/filialebi') ფილიალები
+				li
+					a(href='/chvensShesaxeb') ჩვენს შესახებ
+				li
+					a(href='/kontaqti') კონტაქტი
+				li
+					a(href='/kitxvaPasuxi') კითხვა-პასუხი
+		div
+			block content
