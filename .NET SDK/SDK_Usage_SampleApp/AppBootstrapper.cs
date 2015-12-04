@@ -37,8 +37,7 @@ namespace SDK_Usage_SampleApp
 			var batch = new CompositionBatch();
 			
 			_portName = SerialPort.GetPortNames()[0];
-
-			//_ecr = new Dp25(_portName);
+			_ecr = new Dp25(_portName);
 
 			var messenger = new MessageAggregator();
 
@@ -85,7 +84,7 @@ namespace SDK_Usage_SampleApp
 
 		protected override void OnExit(object sender, EventArgs e)
 		{
-			//_ecr.Dispose();
+			_ecr.Dispose();
 		}
 	}
 

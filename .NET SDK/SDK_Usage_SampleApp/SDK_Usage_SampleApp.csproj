@@ -146,7 +146,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Kasa.ge\KasaGE.csproj">
+    <ProjectReference Include="..\KasaGE\KasaGE.csproj">
       <Project>{c85cc685-3873-4b5e-8bfc-dffe5007e57c}</Project>
       <Name>KasaGE</Name>
     </ProjectReference>
