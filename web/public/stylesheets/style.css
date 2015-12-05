@@ -15,6 +15,11 @@
     src: url('../fonts/DejaVuSans-Bold.ttf');
 }
 
+@font-face {
+   font-family: GEL;
+   src: url('../fonts/lari.ttf');
+}
+
 body {
     padding-top: 20px;
     height:100%;
@@ -51,7 +56,7 @@ html {
 
 .footer-push {
     clear:both;
-    height:90px;
+    height:180px;
 }
 
 footer {
@@ -60,22 +65,50 @@ footer {
     margin-top:0px;
     padding-top:10px;
     padding-right:0px;
-    height:90px;
+    height:180px;
 }
 footer h4 {
     text-align: right;
     margin: 20px 20px;
 }
 
-.servisi {
+.rect {
     border:1px solid #ddd;
     border-radius:4px;
     margin-bottom: 10px;
     padding:10px;
 }
-.servisi-link {
+.rect-link {
     margin-left: 10px;
 }
 .text-bold {
     font-weight: bold;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.indent-20 {
+    text-indent: 20px;
+}
+
+accordion .panel-group {
+    margin-bottom: 0px !important;
+}
+
+.pricetag{
+    left: 10px;
+    top: 5px;
+    position: absolute;
+}
+
+.pricetag-value{
+    left: 20px;
+    top: 15px;
+    position: absolute;
+    color:white;
+    font-size: 18px;
+    font-weight: bold;
+}
+

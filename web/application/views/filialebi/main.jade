@@ -1,4 +1,109 @@
 extends ../index
-	block content
-	div.container
-		h3 content : filialebi
+block content
+	script.
+		var filialebi = [
+			{
+				id:1,
+				displayName: 'თბილისი',
+				address: "აკ. წერეთლის გამზ. #77",
+				lat: 41.737362, lng: 44.782135
+			},
+			{
+				id:2,
+				displayName:'რუსთავი',
+				address:'მ. კოსტავას გამზ. #33',
+				lat:41.541965, lng: 45.014706
+			},
+			{
+				id:3,
+				displayName:'ქუთაისი',
+				address:'რუსთაველის გამზ. #110',
+				lat:42.266421, lng: 42.690014
+			},
+			{
+				id:4,
+				displayName:'ბათუმი',
+				address:'ფიროსმანის ქ. #7',
+				lat:41.638716, lng: 41.615569
+			},
+			{
+				id:5,
+				displayName:'ფოთი',
+				address:'დაგეგმილია გახსნა',
+				lat:42.158408,lng:  41.675736
+			},
+			{
+				id:6,
+				displayName:'ზუგდიდი',
+				address:'დაგეგმილია გახსნა',
+				lat:42.510854,lng: 41.869910
+			},
+			{
+				id:7,
+				displayName:'ახალციხე',
+				address:'დაგეგმილია გახსნა',
+				lat:41.641407,lng: 42.982636
+			},
+			{
+				id:8,
+				displayName:'ხაშური',
+				address:'დაგეგმილია გახსნა',
+				lat:41.986034,lng: 43.595151
+			},
+			{
+				id:9,
+				displayName:'ზესტაფონი',
+				address:'დაგეგმილია გახსნა',
+				lat:42.107043,lng: 43.034825
+			},
+			{
+				id:10,
+				displayName:'გორი',
+				address:'დაგეგმილია გახსნა',
+				lat:41.985588,lng: 44.109264
+			},
+			{
+				id:11,
+				displayName:'ოზურგეთი',
+				address:'დაგეგმილია გახსნა',
+				lat:41.926224,lng: 42.000996
+			}
+		];
+		var markers = {};
+		function initMap() {
+			var mapOptions = {
+				center: new google.maps.LatLng(41.737362, 44.782135),
+				zoom: 17,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+			filialebi.forEach(function (filiali) {
+				var marker = new google.maps.Marker({
+					map : map,
+					position : new google.maps.LatLng(filiali.lat,filiali.lng)
+				});
+				markers[filiali.id] = marker;
+			});
+			return map;
+		}
+		app.controller('filialebiCtrl',function($scope){
+			var map = initMap();
+			$scope.selectedBranch = null;
+			$scope.filialebi = filialebi;
+			$scope.selectBranch = function (f) {
+				map.setCenter(new google.maps.LatLng(f.lat,f.lng));
+				var currentMarker = markers[f.id];
+				var infowindow = new google.maps.InfoWindow({
+					content : "<span style='font-size: 18px; font-weight: bold'>" + f.address +"</span>"
+				});
+				infowindow.open(map, currentMarker);
+				$scope.selectedBranch = f;
+			};
+			$scope.selectBranch(filialebi[0]);
+		});
+	div.row(ng-controller="filialebiCtrl")
+		div.col-md-3
+			div.list-group.cursor-pointer
+				a.list-group-item(ng-repeat="f in filialebi",ng-click="selectBranch(f)",ng-class="{active: selectedBranch == f}") {{f.displayName}}
+		div.col-md-9
+			div#map(style="width:100%;height:800px;")

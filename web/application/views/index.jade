@@ -1,14 +1,10 @@
 extends layout
 block body
 	div.container
-		div(style="padding:5px;")
-			img(src="/img/logo.png",style="max-width:150px;margin-top:-9px;")
-			span.pull-right
-				label(style="color:red") ცხელი ხაზი: 032 245 45 42
 		div.navbar.navbar-default.font-bpg-mtavruli-bold
-			//div.navbar-header
+			div.navbar-header
 				a.navbar-brand(href='/')
-					img(src="/img/logo.JPG",style="max-width:130px;margin-top:-9px;")
+					img(src="/img/logo.JPG",style="max-width:150px; margin-top:-12px; margin-left:-12px;")
 			ul.nav.navbar-nav
 				li
 					a(href='/') მთავარი
@@ -22,5 +18,6 @@ block body
 					a(href='/kontaqti') კონტაქტი
 				li
 					a(href='/kitxvaPasuxi') კითხვა-პასუხი
+			span.pull-right.text-danger.text-bold(style="margin: 16px 8px 0px 0px;") ცხელი ხაზი: 032 242 45 45
 		div
 			block content

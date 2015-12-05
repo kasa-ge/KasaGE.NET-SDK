@@ -1,4 +1,42 @@
 extends ../index
-	block content
-	div.container
-		h3 content : kitxva pasuxi
+block content
+	script.
+		app.controller('simpleCtrl',function($scope){
+			$scope.faq = [
+				{q:'კითხვა 1',a:'პასუხი 1'},
+				{q:'კითხვა 2',a:'პასუხი 2'},
+				{q:'კითხვა 3',a:'პასუხი 3'},
+				{q:'კითხვა 4',a:'პასუხი 4'},
+				{q:'კითხვა 5',a:'პასუხი 5'},
+				{q:'კითხვა 6',a:'პასუხი 6'}
+			];
+		});
+	div.row
+		//div.col-md-7
+		div.col-md-12
+			div.panel.panel-primary
+				div.panel-heading
+					h4.text-center დასვით კითხვა
+				div.panel-body
+					#disqus_thread
+						script(type='text/javascript').
+							/* * * CONFIGURATION VARIABLES * * */
+							var disqus_shortname = 'kasage';
+							/* * * DON'T EDIT BELOW THIS LINE * * */
+							(function() {
+								var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+								dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+								(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+							})();
+						noscript
+							| Please enable JavaScript to view the
+							a(href='https://disqus.com/?ref_noscript', rel='nofollow') comments powered by Disqus.
+		//div.col-md-5
+			div.panel.panel-warning
+				div.panel-heading
+					h4.text-center ხშირად დასმული კითხვები
+				div.panel-body(ng-controller="simpleCtrl",style="padding:5px 0px 0px 0px !important;")
+					accordion(close-others="true")
+						accordion-group(ng-repeat="f in faq",panel-class="panel-warning")
+							accordion-heading {{f.q}}
+							p {{f.a}}
