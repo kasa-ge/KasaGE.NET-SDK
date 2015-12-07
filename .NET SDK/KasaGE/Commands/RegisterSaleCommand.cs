@@ -7,7 +7,7 @@ namespace KasaGE.Commands
 		public RegisterSaleCommand(string pluName,int taxCode,decimal price,decimal qty)
 		{
 			Command = 49;
-			Data = string.Join("\t", pluName, taxCode, price, qty) + "\t";
+			Data = string.Concat(new object[] {"\t", pluName, taxCode, price, qty}, "\t");
 		}
 		public override int Command { get; }
 		public override string Data { get; }
