@@ -18,6 +18,13 @@ block body
 					a(href='/kontaqti') კონტაქტი
 				li
 					a(href='/kitxvaPasuxi') კითხვა-პასუხი
+				li(dropdown)
+					a(dropdown-toggle,href='#')
+						span მხარდაჭერა 
+						span.cart
+					ul.dropdown-menu
+						li
+							a(href='/mxardachera/programuli') პროგრამული უზრუნველყოფა
 			span.pull-right.text-danger.text-bold(style="margin: 16px 8px 0px 0px;") ცხელი ხაზი: 032 242 45 45
 		div
 			block content
