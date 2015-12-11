@@ -146,6 +146,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\KasaGE\KasaGE.csproj">
       <Project>{c85cc685-3873-4b5e-8bfc-dffe5007e57c}</Project>
       <Name>KasaGE</Name>

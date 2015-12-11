@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasaGE", "KasaGE\KasaGE.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK_Usage_SampleApp", "SDK_Usage_SampleApp\SDK_Usage_SampleApp.csproj", "{71A34AF1-1157-4DE1-8FC9-C7A671C995F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasaGE_3.5", "KasaGE_3.5\KasaGE_3.5.csproj", "{49208D73-EB06-4FCF-B7ED-45D66140C110}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{71A34AF1-1157-4DE1-8FC9-C7A671C995F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71A34AF1-1157-4DE1-8FC9-C7A671C995F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71A34AF1-1157-4DE1-8FC9-C7A671C995F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49208D73-EB06-4FCF-B7ED-45D66140C110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49208D73-EB06-4FCF-B7ED-45D66140C110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49208D73-EB06-4FCF-B7ED-45D66140C110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49208D73-EB06-4FCF-B7ED-45D66140C110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
