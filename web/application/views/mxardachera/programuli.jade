@@ -1,14 +1,17 @@
 extends ../index
 block content
-	div.col-md-6
-		div.panel.panel-primary
-			div.panel-heading
-				h4 .NET SDK
-			div.panel-body
-				a(href="/files/lib-4.0.zip",target="blank") .NET 4.0 Download
-	div.col-md-6
-		div.panel.panel-primary
-			div.panel-heading
-				h4 Demo Application
-			div.panel-body
-				a(href="/files/demoApp.zip",target="blank") Download
+	div.row
+		div.col-md-10
+			div.panel.panel-primary
+				div.panel-heading
+					h4 Documentation
+				div.panel-body
+					span ...
+		div.col-md-2
+			div.panel.panel-primary
+				div.panel-heading
+					h4 Downloads
+				div.panel-body
+					p: a(href="/files/lib-3.5.zip",target="blank") .NET 3.5 SDK
+					p: a(href="/files/lib-4.0.zip",target="blank") .NET 4.0 SDK
+					p: a(href="/files/demoApp.zip",target="blank") Demo Application
