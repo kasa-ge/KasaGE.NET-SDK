@@ -334,5 +334,23 @@ namespace KasaGE
 			return (ReadDateTimeResponse)SendMessage(new ReadDateTimeCommand()
 				, bytes => new ReadDateTimeResponse(bytes));
 		}
-	}
+
+        /// <summary>
+        /// Defines items in ECR
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="plu"></param>
+        /// <param name="taxGr"></param>
+        /// <param name="dep"></param>
+        /// <param name="group"></param>
+        /// <param name="price"></param>
+        /// <param name="quantity"></param>
+        /// <param name="priceType"></param>
+        /// <returns></returns>
+        public ProgramItemResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
+        {
+            return (ProgramItemResponse)SendMessage(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType)
+                , bytes => new ProgramItemResponse(bytes));
+        }
+    }
 }
