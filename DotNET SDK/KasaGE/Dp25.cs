@@ -347,10 +347,10 @@ namespace KasaGE
         /// <param name="quantity"></param>
         /// <param name="priceType"></param>
         /// <returns></returns>
-        public ProgramItemResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
+        public EmptyFiscalResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
         {
-            return (ProgramItemResponse)SendMessage(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType)
-                , bytes => new ProgramItemResponse(bytes));
+            return (EmptyFiscalResponse)SendMessage(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType)
+                , bytes => new EmptyFiscalResponse(bytes));
         }
     }
 }

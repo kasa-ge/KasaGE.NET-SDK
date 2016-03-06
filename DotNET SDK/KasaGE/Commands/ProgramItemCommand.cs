@@ -7,7 +7,7 @@ using System.Text;
 
 namespace KasaGE.Commands
 {
-    public class ProgramItemCommand : WrappedMessage
+    internal class ProgramItemCommand : WrappedMessage
     {
         public ProgramItemCommand(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
         {
