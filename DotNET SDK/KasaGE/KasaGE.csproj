@@ -71,6 +71,8 @@
     <Compile Include="Responses\GetLastFiscalEntryInfoResponse.cs" />
     <Compile Include="Responses\OpenFiscalReceiptResponse.cs" />
     <Compile Include="Responses\PrintReportResponse.cs" />
+    <Compile Include="Commands\ProgramItemCommand.cs" />
+    <Compile Include="Responses\ProgramItemResponse.cs" />
     <Compile Include="Responses\ReadDateTimeResponse.cs" />
     <Compile Include="Responses\ReadErrorResponse.cs" />
     <Compile Include="Responses\ReadStatusResponse.cs" />
