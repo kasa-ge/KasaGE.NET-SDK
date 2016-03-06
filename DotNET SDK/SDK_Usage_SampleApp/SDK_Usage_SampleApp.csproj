@@ -80,6 +80,7 @@
     <Compile Include="Messaging\Events\EcrRespondedEvent.cs" />
     <Compile Include="Messaging\Events\SelectedPortChangedEvent.cs" />
     <Compile Include="Messaging\Events\EcrThrewExceptionEvent.cs" />
+    <Compile Include="test.cs" />
     <Compile Include="Utils\MessageAggregator.cs" />
     <Compile Include="Utils\TypeNameToColorConverter.cs" />
     <Compile Include="ViewModels\CommandListViewModel.cs" />
