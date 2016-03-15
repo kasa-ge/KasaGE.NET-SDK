@@ -36,15 +36,18 @@ namespace SDK_Usage_SampleApp
 
 			var batch = new CompositionBatch();
 			
-			_portName = SerialPort.GetPortNames()[0];
-			_ecr = new Dp25(_portName);
-
+			var portNames = SerialPort.GetPortNames();
+			_portName = portNames.Length > 0 ? portNames[0] : string.Empty;
+			try
+			{
+				_ecr = new Dp25(_portName);
+			}
+			catch (Exception ex)
+			{}
 			var messenger = new MessageAggregator();
 
 			messenger.GetStream<SelectedPortChangedEvent>()
 					.Subscribe(e => _ecr.ChangePort(e.PortName));
-
-
 
 			batch.AddExportedValue<IWindowManager>(new WindowManager());
 			batch.AddExportedValue<IMessageAggregator>(messenger);
@@ -52,6 +55,7 @@ namespace SDK_Usage_SampleApp
 			batch.AddExportedValue(_container);
 
 			_container.Compose(batch);
+
 		}
 
 		protected override object GetInstance(Type serviceType, string key)
@@ -84,7 +88,7 @@ namespace SDK_Usage_SampleApp
 
 		protected override void OnExit(object sender, EventArgs e)
 		{
-			_ecr.Dispose();
+			_ecr?.Dispose();
 		}
 	}
 

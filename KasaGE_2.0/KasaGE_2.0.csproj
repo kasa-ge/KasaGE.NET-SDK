@@ -4,69 +4,64 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C85CC685-3873-4B5E-8BFC-DFFE5007E57C}</ProjectGuid>
+    <ProjectGuid>{EBA55E3A-BC85-4CB7-AB92-AB741506429C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>KasaGE</RootNamespace>
     <AssemblyName>KasaGE</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DOTNET2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
-    <DocumentationFile>bin\Debug\KasaGE.XML</DocumentationFile>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;DOTNET2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>KasaGEKEY.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinqBridge, Version=1.3.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CalculateTotalCommand.cs" />
     <Compile Include="Commands\CashInCashOutCommand.cs" />
     <Compile Include="Commands\CloseFiscalReceiptCommand.cs" />
+    <Compile Include="Commands\FeedPaperCommand.cs" />
     <Compile Include="Commands\GetLastFiscalEntryInfoCommand.cs" />
     <Compile Include="Commands\OpenDrawerCommand.cs" />
     <Compile Include="Commands\OpenFiscalReceiptCommand.cs" />
     <Compile Include="Commands\PlaySoundCommand.cs" />
+    <Compile Include="Commands\PrintReportCommand.cs" />
+    <Compile Include="Commands\ProgramItemCommand.cs" />
     <Compile Include="Commands\ReadDateTimeCommand.cs" />
     <Compile Include="Commands\ReadErrorCommand.cs" />
+    <Compile Include="Commands\ReadStatusCommand.cs" />
     <Compile Include="Commands\RegisterSaleCommand.cs" />
-    <Compile Include="Commands\PrintReportCommand.cs" />
-    <Compile Include="Commands\CalculateTotalCommand.cs" />
     <Compile Include="Commands\SetDateTimeCommand.cs" />
     <Compile Include="Commands\VoidOpenFiscalReceiptCommand.cs" />
     <Compile Include="Core\FiscalIOException.cs" />
-    <Compile Include="Dp25.cs" />
-    <Compile Include="Commands\FeedPaperCommand.cs" />
-    <Compile Include="Commands\ReadStatusCommand.cs" />
     <Compile Include="Core\FiscalResponse.cs" />
+    <Compile Include="Core\IFiscalResponse.cs" />
+    <Compile Include="Core\IWrappedMessage.cs" />
+    <Compile Include="Core\WrappedMessage.cs" />
+    <Compile Include="Dp25.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\CalculateTotalResponse.cs" />
     <Compile Include="Responses\CashInCashOutResponse.cs" />
     <Compile Include="Responses\CloseFiscalReceiptResponse.cs" />
@@ -74,20 +69,16 @@
     <Compile Include="Responses\GetLastFiscalEntryInfoResponse.cs" />
     <Compile Include="Responses\OpenFiscalReceiptResponse.cs" />
     <Compile Include="Responses\PrintReportResponse.cs" />
-    <Compile Include="Commands\ProgramItemCommand.cs" />
     <Compile Include="Responses\ReadDateTimeResponse.cs" />
     <Compile Include="Responses\ReadErrorResponse.cs" />
     <Compile Include="Responses\ReadStatusResponse.cs" />
     <Compile Include="Responses\RegisterSaleResponse.cs" />
     <Compile Include="Responses\VoidOpenFiscalReceiptResponse.cs" />
     <Compile Include="Utils\Extensions.cs" />
-    <Compile Include="Core\IFiscalResponse.cs" />
-    <Compile Include="Core\IWrappedMessage.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\WrappedMessage.cs" />
+    <Compile Include="Utils\FrameworkExt.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="KasaGEKEY.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

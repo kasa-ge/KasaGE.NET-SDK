@@ -5,22 +5,22 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KasaGE")]
-[assembly: AssemblyDescription("ECR SDK")]
+[assembly: AssemblyTitle("KasaGE_2.0")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Vaso Bolkvadze")]
-[assembly: AssemblyProduct("ECR SDK")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("KasaGE_2.0")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(true)]
+[assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("49208d73-eb06-4fcf-b7ed-45d66140c110")]
+[assembly: Guid("eba55e3a-bc85-4cb7-ab92-ab741506429c")]
 
 // Version information for an assembly consists of the following four values:
 //

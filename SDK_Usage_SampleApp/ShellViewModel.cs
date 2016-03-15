@@ -46,7 +46,8 @@ namespace SDK_Usage_SampleApp
 		[ImportingConstructor]
 		public ShellViewModel(IMessageAggregator messenger)
 		{
-			PortNames = new ObservableCollection<string>(SerialPort.GetPortNames());
+			var portNames = SerialPort.GetPortNames();
+			PortNames = new ObservableCollection<string>(portNames.Length>0 ? portNames : new []{"NOT FOUND"});
 			_messenger = messenger;
 			messenger.GetStream<ChangeSelectedPortCommand>()
 				.Subscribe(cmd =>

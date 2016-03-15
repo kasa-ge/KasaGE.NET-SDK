@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KasaGE")]
-[assembly: AssemblyDescription("ECR SDK")]
+[assembly: AssemblyTitle("KasaGE_4.6")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Vaso Bolkvadze")]
-[assembly: AssemblyProduct("ECR SDK")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("KasaGE_4.6")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c85cc685-3873-4b5e-8bfc-dffe5007e57c")]
+[assembly: Guid("496801e8-c61b-4356-9b80-981288c59af7")]
 
 // Version information for an assembly consists of the following four values:
 //
