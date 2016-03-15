@@ -10,6 +10,7 @@ using KasaGE.Responses;
 
 namespace KasaGE
 {
+	///----
 	/// <summary>
 	/// ECR Device DP25 Implementation (API)
 	/// </summary>
