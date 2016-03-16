@@ -2,7 +2,7 @@
 
 namespace KasaGE.Responses
 {
-	public class CloseFiscalReceiptResponse:FiscalResponse
+	public class CloseFiscalReceiptResponse : FiscalResponse
 	{
 		public CloseFiscalReceiptResponse(byte[] buffer) : base(buffer)
 		{
@@ -13,6 +13,7 @@ namespace KasaGE.Responses
 				SlipNumber = result;
 			if (int.TryParse(values[1], out result))
 				SlipNumberOfThisType = result;
+			DocNumber = int.Parse(values[2]);
 		}
 		/// <summary>
 		/// Current slip number - unique number of the fiscal receipt 
@@ -22,5 +23,9 @@ namespace KasaGE.Responses
 		/// Current slip number of this type: cash debit receipt or cash credit receipt or cashfree debit receipt or cashfree credit rceipt
 		/// </summary>
 		public int SlipNumberOfThisType { get; set; }
-    }
+		/// <summary>
+		/// Global number of all documents 
+		/// </summary>
+		public int DocNumber { get; set; }
+	}
 }

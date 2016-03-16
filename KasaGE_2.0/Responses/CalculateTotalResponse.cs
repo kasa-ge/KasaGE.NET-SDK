@@ -12,6 +12,7 @@ namespace KasaGE.Responses
 			Status = values[0];
 			Amount = decimal.Parse(values[1],CultureInfo.InvariantCulture);
 			SlipNumber = int.Parse(values[2]);
+			DocNumber = int.Parse(values[3]);
 		}
 
 		/// <summary>
@@ -27,5 +28,9 @@ namespace KasaGE.Responses
 		/// Current slip number - unique number of the fiscal receipt
 		/// </summary>
 		public int SlipNumber { get; set; }
+		/// <summary>
+		/// Global number of all documents 
+		/// </summary>
+		public int DocNumber { get; set; }
 	}
 }

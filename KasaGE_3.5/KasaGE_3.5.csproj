@@ -39,6 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\KasaGE_2.0\Commands\AddTextToFiscalReceiptCommand.cs">
+      <Link>Commands\AddTextToFiscalReceiptCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\AddTextToNonFiscalReceiptCommand.cs">
+      <Link>Commands\AddTextToNonFiscalReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\CalculateTotalCommand.cs">
       <Link>Commands\CalculateTotalCommand.cs</Link>
     </Compile>
@@ -47,6 +53,9 @@
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\CloseFiscalReceiptCommand.cs">
       <Link>Commands\CloseFiscalReceiptCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\CloseNonFiscalReceiptCommand.cs">
+      <Link>Commands\CloseNonFiscalReceiptCommand.cs</Link>
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\FeedPaperCommand.cs">
       <Link>Commands\FeedPaperCommand.cs</Link>
@@ -59,6 +68,9 @@
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\OpenFiscalReceiptCommand.cs">
       <Link>Commands\OpenFiscalReceiptCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\OpenNonFiscalReceiptCommand.cs">
+      <Link>Commands\OpenNonFiscalReceiptCommand.cs</Link>
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\PlaySoundCommand.cs">
       <Link>Commands\PlaySoundCommand.cs</Link>
@@ -77,6 +89,9 @@
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\ReadStatusCommand.cs">
       <Link>Commands\ReadStatusCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\RegisterProgrammedItemSaleCommand.cs">
+      <Link>Commands\RegisterProgrammedItemSaleCommand.cs</Link>
     </Compile>
     <Compile Include="..\KasaGE_2.0\Commands\RegisterSaleCommand.cs">
       <Link>Commands\RegisterSaleCommand.cs</Link>
@@ -105,6 +120,9 @@
     <Compile Include="..\KasaGE_2.0\Dp25.cs">
       <Link>Dp25.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\AddTextToFiscalReceiptResponse.cs">
+      <Link>Responses\AddTextToFiscalReceiptResponse.cs</Link>
+    </Compile>
     <Compile Include="..\KasaGE_2.0\Responses\CalculateTotalResponse.cs">
       <Link>Responses\CalculateTotalResponse.cs</Link>
     </Compile>
@@ -113,6 +131,9 @@
     </Compile>
     <Compile Include="..\KasaGE_2.0\Responses\CloseFiscalReceiptResponse.cs">
       <Link>Responses\CloseFiscalReceiptResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\CommonFiscalResponse.cs">
+      <Link>Responses\CommonFiscalResponse.cs</Link>
     </Compile>
     <Compile Include="..\KasaGE_2.0\Responses\EmptyFiscalResponse.cs">
       <Link>Responses\EmptyFiscalResponse.cs</Link>

@@ -39,19 +39,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddTextToFiscalReceiptCommand.cs" />
+    <Compile Include="Commands\AddTextToNonFiscalReceiptCommand.cs" />
     <Compile Include="Commands\CalculateTotalCommand.cs" />
     <Compile Include="Commands\CashInCashOutCommand.cs" />
     <Compile Include="Commands\CloseFiscalReceiptCommand.cs" />
+    <Compile Include="Commands\CloseNonFiscalReceiptCommand.cs" />
     <Compile Include="Commands\FeedPaperCommand.cs" />
     <Compile Include="Commands\GetLastFiscalEntryInfoCommand.cs" />
+    <Compile Include="Commands\GetStatusOfCurrentReceiptCommand.cs" />
     <Compile Include="Commands\OpenDrawerCommand.cs" />
     <Compile Include="Commands\OpenFiscalReceiptCommand.cs" />
+    <Compile Include="Commands\OpenNonFiscalReceiptCommand.cs" />
     <Compile Include="Commands\PlaySoundCommand.cs" />
     <Compile Include="Commands\PrintReportCommand.cs" />
     <Compile Include="Commands\ProgramItemCommand.cs" />
     <Compile Include="Commands\ReadDateTimeCommand.cs" />
     <Compile Include="Commands\ReadErrorCommand.cs" />
     <Compile Include="Commands\ReadStatusCommand.cs" />
+    <Compile Include="Commands\RegisterProgrammedItemSaleCommand.cs" />
     <Compile Include="Commands\RegisterSaleCommand.cs" />
     <Compile Include="Commands\SetDateTimeCommand.cs" />
     <Compile Include="Commands\VoidOpenFiscalReceiptCommand.cs" />
@@ -62,11 +68,14 @@
     <Compile Include="Core\WrappedMessage.cs" />
     <Compile Include="Dp25.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\AddTextToFiscalReceiptResponse.cs" />
     <Compile Include="Responses\CalculateTotalResponse.cs" />
     <Compile Include="Responses\CashInCashOutResponse.cs" />
     <Compile Include="Responses\CloseFiscalReceiptResponse.cs" />
+    <Compile Include="Responses\CommonFiscalResponse.cs" />
     <Compile Include="Responses\EmptyFiscalResponse.cs" />
     <Compile Include="Responses\GetLastFiscalEntryInfoResponse.cs" />
+    <Compile Include="Responses\GetStatusOfCurrentReceiptResponse.cs" />
     <Compile Include="Responses\OpenFiscalReceiptResponse.cs" />
     <Compile Include="Responses\PrintReportResponse.cs" />
     <Compile Include="Responses\ReadDateTimeResponse.cs" />

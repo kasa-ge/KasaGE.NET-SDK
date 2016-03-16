@@ -3,7 +3,7 @@ using KasaGE.Core;
 
 namespace KasaGE.Responses
 {
-	public class CashInCashOutResponse:FiscalResponse
+	public class CashInCashOutResponse : FiscalResponse
 	{
 		public CashInCashOutResponse(byte[] buffer) : base(buffer)
 		{
@@ -12,6 +12,7 @@ namespace KasaGE.Responses
 			CashSum = decimal.Parse(values[0], CultureInfo.InvariantCulture);
 			CashIn = decimal.Parse(values[1], CultureInfo.InvariantCulture);
 			CashOut = decimal.Parse(values[2], CultureInfo.InvariantCulture);
+			DocNumber = int.Parse(values[3]);
 		}
 
 		/// <summary>
@@ -26,5 +27,9 @@ namespace KasaGE.Responses
 		/// Total sum of cash out operations 
 		/// </summary>
 		public decimal CashOut { get; set; }
-    }
+		/// <summary>
+		/// Global number of all documents 
+		/// </summary>
+		public int DocNumber { get; set; }
+	}
 }
