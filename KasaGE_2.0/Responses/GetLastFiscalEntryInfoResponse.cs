@@ -8,7 +8,7 @@ namespace KasaGE.Responses
 	{
 		public GetLastFiscalEntryInfoResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			nRep = int.Parse(values[0]);
 			Sum = decimal.Parse(values[1], CultureInfo.InvariantCulture);

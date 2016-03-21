@@ -74,6 +74,9 @@
     <Compile Include="..\kasage_2.0\commands\GetLastFiscalEntryInfoCommand.cs">
       <Link>Commands\GetLastFiscalEntryInfoCommand.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\GetStatusOfCurrentReceiptCommand.cs">
+      <Link>Commands\GetStatusOfCurrentReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\OpenDrawerCommand.cs">
       <Link>Commands\OpenDrawerCommand.cs</Link>
     </Compile>
@@ -151,6 +154,9 @@
     </Compile>
     <Compile Include="..\kasage_2.0\responses\GetLastFiscalEntryInfoResponse.cs">
       <Link>Responses\GetLastFiscalEntryInfoResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\GetStatusOfCurrentReceiptResponse.cs">
+      <Link>Responses\GetStatusOfCurrentReceiptResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\responses\OpenFiscalReceiptResponse.cs">
       <Link>Responses\OpenFiscalReceiptResponse.cs</Link>

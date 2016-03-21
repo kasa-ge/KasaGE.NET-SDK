@@ -7,7 +7,7 @@ namespace KasaGE.Responses
 	{
 		public CashInCashOutResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			CashSum = decimal.Parse(values[0], CultureInfo.InvariantCulture);
 			CashIn = decimal.Parse(values[1], CultureInfo.InvariantCulture);

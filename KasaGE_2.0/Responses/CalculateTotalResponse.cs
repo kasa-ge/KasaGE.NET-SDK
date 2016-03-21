@@ -7,7 +7,7 @@ namespace KasaGE.Responses
 	{
 		public CalculateTotalResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			Status = values[0];
 			Amount = decimal.Parse(values[1],CultureInfo.InvariantCulture);

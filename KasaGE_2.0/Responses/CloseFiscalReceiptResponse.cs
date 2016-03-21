@@ -6,13 +6,10 @@ namespace KasaGE.Responses
 	{
 		public CloseFiscalReceiptResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
-			int result;
-			if (int.TryParse(values[0], out result))
-				SlipNumber = result;
-			if (int.TryParse(values[1], out result))
-				SlipNumberOfThisType = result;
+			SlipNumber = int.Parse(values[0]); 
+			SlipNumberOfThisType = int.Parse(values[1]);
 			DocNumber = int.Parse(values[2]);
 		}
 		/// <summary>

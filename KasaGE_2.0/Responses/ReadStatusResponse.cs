@@ -11,7 +11,7 @@ namespace KasaGE.Responses
 			var list = new List<string>();
 			for (var index = 0; index < 6; index++)
 			{
-				list.Add(getStatusValue(data[index],index));
+				list.Add(getStatusValue(Data[index],index));
 			}
 			list.RemoveAll(x => x == string.Empty);
 			Status = list.ToArray();

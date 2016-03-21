@@ -27,35 +27,6 @@ namespace SDK_Usage_SampleApp
 		public GeneralCommandsViewModel GeneralCommandsViewModel { get; set; }
 		[Import]
 		public CommandListViewModel CommandListViewModel { get; set; }
-
-		public ObservableCollection<string> PortNames { get; set; }
-
-		public string SelectedPortName
-		{
-			get { return _selectedPortName; }
-			set
-			{
-				_selectedPortName = value;
-				_messenger.Publish(new SelectedPortChangedEvent(value));
-			}
-		}
-
-		private readonly IMessageAggregator _messenger;
-		private string _selectedPortName;
-
-		[ImportingConstructor]
-		public ShellViewModel(IMessageAggregator messenger)
-		{
-			var portNames = SerialPort.GetPortNames();
-			PortNames = new ObservableCollection<string>(portNames.Length>0 ? portNames : new []{"NOT FOUND"});
-			_messenger = messenger;
-			messenger.GetStream<ChangeSelectedPortCommand>()
-				.Subscribe(cmd =>
-				{
-					this._selectedPortName = cmd.PortName;
-					NotifyOfPropertyChange(() => SelectedPortName);
-				});
-		}
 	}
 
 	public interface IShell

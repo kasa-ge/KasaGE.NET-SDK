@@ -6,7 +6,7 @@ namespace KasaGE.Responses
 	{
 		public RegisterSaleResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			SlipNumber = int.Parse(values[0]);
 			DocNumber = int.Parse(values[1]);

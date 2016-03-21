@@ -28,16 +28,16 @@ namespace KasaGE.Core
 			if (dataBytes.First() != 0x30)
 				ErrorCode = dataBytes.GetString();
 			else
-				data = dataBytes.Skip(2).Take(dataBytes.Length - 2).ToArray();
+				Data = dataBytes.Skip(2).Take(dataBytes.Length - 2).ToArray();
 		}
 
-		public bool CommandPassed { get { return string.IsNullOrEmpty(ErrorCode); } }
+		public bool CommandPassed => string.IsNullOrEmpty(ErrorCode);
 		public string ErrorCode { get; set; }
-		protected byte[] data { get; set; }
-		protected string[] getDataValues()
+		protected byte[] Data { get; set; }
+		protected string[] GetDataValues()
 		{
 			if(CommandPassed)
-				return data.GetString().Split('\t');
+				return Data.GetString().Split('\t');
 			return new string[0];
 		}
 	}

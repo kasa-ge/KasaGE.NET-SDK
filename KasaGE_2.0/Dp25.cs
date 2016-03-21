@@ -101,17 +101,18 @@ namespace KasaGE
 				{
 					if (r >= 2)
 						throw;
+					_queue.Clear();
 				}
 			}
 			_sequence += 1;
 			if (_sequence > 254)
 				_sequence = 32;
 			if (msg.Command != 74)
-				checkStatusOnErrors(lastStatusBytes);
+				CheckStatusOnErrors(lastStatusBytes);
 			return response;
 		}
 
-		private void checkStatusOnErrors(byte[] statusBytes)
+		private void CheckStatusOnErrors(byte[] statusBytes)
 		{
 			if (statusBytes == null)
 				throw new ArgumentNullException(nameof(statusBytes));
@@ -137,18 +138,6 @@ namespace KasaGE
 				throw new FiscalIOException("* Error while writing in FM.");
 		}
 
-
-
-		/// <summary>
-		/// Changes port name at runtime.
-		/// </summary>
-		/// <param name="portName">Name of the serial port.</param>
-		public void ChangePort(string portName)
-		{
-			_port.Close();
-			_port.PortName = portName;
-			_port.Open();
-		}
 
 		/// <summary>
 		/// Executes custom command implementation and returns predefined custom response.
@@ -475,6 +464,18 @@ namespace KasaGE
 		}
 
 		/// <summary>
+		/// Gets the status of current or last receipt 
+		/// </summary>
+		/// <returns>GetStatusOfCurrentReceiptResponse</returns>
+		public GetStatusOfCurrentReceiptResponse GetStatusOfCurrentReceipt()
+		{
+			return
+				(GetStatusOfCurrentReceiptResponse)
+					SendMessage(new GetStatusOfCurrentReceiptCommand()
+						, bytes => new GetStatusOfCurrentReceiptResponse(bytes));
+		}
+
+		/// <summary>
 		/// Defines items in ECR
 		/// </summary>
 		/// <param name="name"></param>
@@ -491,6 +492,7 @@ namespace KasaGE
 			return (EmptyFiscalResponse)SendMessage(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
+
 		#endregion
 	}
 }

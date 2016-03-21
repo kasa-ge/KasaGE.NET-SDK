@@ -8,12 +8,12 @@ namespace KasaGE.Commands
 		public RegisterSaleCommand(string pluName, int taxCode, decimal price, int departmentNumber, decimal qty)
 		{
 			Command = 49;
-			Data = (new object[] { pluName, taxCode, price, departmentNumber, qty , 0, string.Empty}).StringJoin("\t");
+			Data = (new object[] { pluName, taxCode, price, qty, 0, string.Empty, departmentNumber }).StringJoin("\t");
 		}
 		public RegisterSaleCommand(string pluName, int taxCode, decimal price, int departmentNumber, decimal qty, int discountType, decimal discountValue)
 		{
 			Command = 49;
-			Data = (new object[] { pluName, taxCode, price, departmentNumber, qty, discountType, discountValue }).StringJoin("\t");
+			Data = (new object[] { pluName, taxCode, price, qty, discountType, discountValue, departmentNumber }).StringJoin("\t");
 		}
 		public override int Command { get; }
 		public override string Data { get; }

@@ -7,7 +7,7 @@ namespace KasaGE.Responses
 	{
 		public PrintReportResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			nRep = int.Parse(values[0]);
 			TotX = decimal.Parse(values[1], CultureInfo.InvariantCulture);

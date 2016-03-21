@@ -6,7 +6,7 @@ namespace KasaGE.Responses
 	{
 		public CommonFiscalResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			DocNumber = int.Parse(values[0]);
 		}

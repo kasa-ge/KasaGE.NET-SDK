@@ -6,7 +6,7 @@ namespace KasaGE.Responses
 	{
 		public ReadErrorResponse(byte[] buffer) : base(buffer)
 		{
-			var values = getDataValues();
+			var values = GetDataValues();
 			if (values.Length == 0) return;
 			Code = values[0];
 			ErrorMessage = values[1];
