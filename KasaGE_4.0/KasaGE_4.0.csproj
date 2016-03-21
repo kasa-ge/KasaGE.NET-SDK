@@ -22,7 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
     <DocumentationFile>bin\Debug\KasaGE.XML</DocumentationFile>
-    <RegisterForComInterop>true</RegisterForComInterop>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\KasaGE_2.0\Commands\AddTextToFiscalReceiptCommand.cs">
+      <Link>Commands\AddTextToFiscalReceiptCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\AddTextToNonFiscalReceiptCommand.cs">
+      <Link>Commands\AddTextToNonFiscalReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\CalculateTotalCommand.cs">
       <Link>Commands\CalculateTotalCommand.cs</Link>
     </Compile>
@@ -59,17 +65,26 @@
     <Compile Include="..\kasage_2.0\commands\CloseFiscalReceiptCommand.cs">
       <Link>Commands\CloseFiscalReceiptCommand.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\CloseNonFiscalReceiptCommand.cs">
+      <Link>Commands\CloseNonFiscalReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\FeedPaperCommand.cs">
       <Link>Commands\FeedPaperCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\GetLastFiscalEntryInfoCommand.cs">
       <Link>Commands\GetLastFiscalEntryInfoCommand.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\GetStatusOfCurrentReceiptCommand.cs">
+      <Link>Commands\GetStatusOfCurrentReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\OpenDrawerCommand.cs">
       <Link>Commands\OpenDrawerCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\OpenFiscalReceiptCommand.cs">
       <Link>Commands\OpenFiscalReceiptCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\OpenNonFiscalReceiptCommand.cs">
+      <Link>Commands\OpenNonFiscalReceiptCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\PlaySoundCommand.cs">
       <Link>Commands\PlaySoundCommand.cs</Link>
@@ -88,6 +103,9 @@
     </Compile>
     <Compile Include="..\kasage_2.0\commands\ReadStatusCommand.cs">
       <Link>Commands\ReadStatusCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\RegisterProgrammedItemSaleCommand.cs">
+      <Link>Commands\RegisterProgrammedItemSaleCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\RegisterSaleCommand.cs">
       <Link>Commands\RegisterSaleCommand.cs</Link>
@@ -116,6 +134,9 @@
     <Compile Include="..\KasaGE_2.0\Dp25.cs">
       <Link>Dp25.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\AddTextToFiscalReceiptResponse.cs">
+      <Link>Responses\AddTextToFiscalReceiptResponse.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\responses\CalculateTotalResponse.cs">
       <Link>Responses\CalculateTotalResponse.cs</Link>
     </Compile>
@@ -125,11 +146,17 @@
     <Compile Include="..\kasage_2.0\responses\CloseFiscalReceiptResponse.cs">
       <Link>Responses\CloseFiscalReceiptResponse.cs</Link>
     </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\CommonFiscalResponse.cs">
+      <Link>Responses\CommonFiscalResponse.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\responses\EmptyFiscalResponse.cs">
       <Link>Responses\EmptyFiscalResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\responses\GetLastFiscalEntryInfoResponse.cs">
       <Link>Responses\GetLastFiscalEntryInfoResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\GetStatusOfCurrentReceiptResponse.cs">
+      <Link>Responses\GetStatusOfCurrentReceiptResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\responses\OpenFiscalReceiptResponse.cs">
       <Link>Responses\OpenFiscalReceiptResponse.cs</Link>

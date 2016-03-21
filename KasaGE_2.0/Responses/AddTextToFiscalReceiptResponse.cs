@@ -2,9 +2,9 @@
 
 namespace KasaGE.Responses
 {
-	public class RegisterSaleResponse:FiscalResponse
+	public class AddTextToFiscalReceiptResponse:FiscalResponse
 	{
-		public RegisterSaleResponse(byte[] buffer) : base(buffer)
+		public AddTextToFiscalReceiptResponse(byte[] buffer) : base(buffer)
 		{
 			var values = GetDataValues();
 			if (values.Length == 0) return;

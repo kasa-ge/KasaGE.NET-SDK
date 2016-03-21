@@ -35,7 +35,7 @@ namespace SDK_Usage_SampleApp
 			);
 
 			var batch = new CompositionBatch();
-			
+
 			var portNames = SerialPort.GetPortNames();
 			_portName = portNames.Length > 0 ? portNames[0] : string.Empty;
 			try
@@ -43,7 +43,7 @@ namespace SDK_Usage_SampleApp
 				_ecr = new Dp25(_portName);
 			}
 			catch (Exception ex)
-			{}
+			{ }
 			var messenger = new MessageAggregator();
 
 			messenger.GetStream<SelectedPortChangedEvent>()

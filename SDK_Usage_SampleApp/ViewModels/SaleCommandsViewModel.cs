@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using KasaGE;
+using KasaGE.Commands;
 using SDK_Usage_SampleApp.Messaging.Events;
 using SDK_Usage_SampleApp.Utils;
 
@@ -32,12 +33,12 @@ namespace SDK_Usage_SampleApp.ViewModels
 		{
 			try
 			{
-				var response1 = _ecr.OpenFiscalReceipt();
+				var response1 = _ecr.OpenFiscalReceipt("001", "1");
 				_messenger.Publish(new EcrRespondedEvent(response1));
 
 				foreach (var item in Items.Where(x => x.HasValues()))
 				{
-					var res = _ecr.RegisterSale(item.Name, item.Price, item.Quantity);
+					var res = _ecr.RegisterSale(item.Name, item.Price, item.Quantity, 1);
 					_messenger.Publish(new EcrRespondedEvent(res));
 				}
 

@@ -39,114 +39,143 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\kasage_2.0\commands\CalculateTotalCommand.cs">
-      <Link>Commands\CalculateTotalCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\CashInCashOutCommand.cs">
-      <Link>Commands\CashInCashOutCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\CloseFiscalReceiptCommand.cs">
-      <Link>Commands\CloseFiscalReceiptCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\FeedPaperCommand.cs">
-      <Link>Commands\FeedPaperCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\GetLastFiscalEntryInfoCommand.cs">
-      <Link>Commands\GetLastFiscalEntryInfoCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\OpenDrawerCommand.cs">
-      <Link>Commands\OpenDrawerCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\OpenFiscalReceiptCommand.cs">
-      <Link>Commands\OpenFiscalReceiptCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\PlaySoundCommand.cs">
-      <Link>Commands\PlaySoundCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\PrintReportCommand.cs">
-      <Link>Commands\PrintReportCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\ProgramItemCommand.cs">
-      <Link>Commands\ProgramItemCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\ReadDateTimeCommand.cs">
-      <Link>Commands\ReadDateTimeCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\ReadErrorCommand.cs">
-      <Link>Commands\ReadErrorCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\ReadStatusCommand.cs">
-      <Link>Commands\ReadStatusCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\RegisterSaleCommand.cs">
-      <Link>Commands\RegisterSaleCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\SetDateTimeCommand.cs">
-      <Link>Commands\SetDateTimeCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\commands\VoidOpenFiscalReceiptCommand.cs">
-      <Link>Commands\VoidOpenFiscalReceiptCommand.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\core\FiscalIOException.cs">
-      <Link>Core\FiscalIOException.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\core\FiscalResponse.cs">
-      <Link>Core\FiscalResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\core\IFiscalResponse.cs">
-      <Link>Core\IFiscalResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\core\IWrappedMessage.cs">
-      <Link>Core\IWrappedMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\core\WrappedMessage.cs">
-      <Link>Core\WrappedMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\KasaGE_2.0\Dp25.cs">
-      <Link>Dp25.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\CalculateTotalResponse.cs">
-      <Link>Responses\CalculateTotalResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\CashInCashOutResponse.cs">
-      <Link>Responses\CashInCashOutResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\CloseFiscalReceiptResponse.cs">
-      <Link>Responses\CloseFiscalReceiptResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\EmptyFiscalResponse.cs">
-      <Link>Responses\EmptyFiscalResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\GetLastFiscalEntryInfoResponse.cs">
-      <Link>Responses\GetLastFiscalEntryInfoResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\OpenFiscalReceiptResponse.cs">
-      <Link>Responses\OpenFiscalReceiptResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\PrintReportResponse.cs">
-      <Link>Responses\PrintReportResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\ReadDateTimeResponse.cs">
-      <Link>Responses\ReadDateTimeResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\ReadErrorResponse.cs">
-      <Link>Responses\ReadErrorResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\ReadStatusResponse.cs">
-      <Link>Responses\ReadStatusResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\RegisterSaleResponse.cs">
-      <Link>Responses\RegisterSaleResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\responses\VoidOpenFiscalReceiptResponse.cs">
-      <Link>Responses\VoidOpenFiscalReceiptResponse.cs</Link>
-    </Compile>
-    <Compile Include="..\kasage_2.0\utils\Extensions.cs">
-      <Link>Utils\Extensions.cs</Link>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="Properties\AssemblyInfo.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Include="..\KasaGE_2.0\Commands\AddTextToFiscalReceiptCommand.cs">
+			<Link>Commands\AddTextToFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Commands\AddTextToNonFiscalReceiptCommand.cs">
+			<Link>Commands\AddTextToNonFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\CalculateTotalCommand.cs">
+			<Link>Commands\CalculateTotalCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\CashInCashOutCommand.cs">
+			<Link>Commands\CashInCashOutCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\CloseFiscalReceiptCommand.cs">
+			<Link>Commands\CloseFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Commands\CloseNonFiscalReceiptCommand.cs">
+			<Link>Commands\CloseNonFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\FeedPaperCommand.cs">
+			<Link>Commands\FeedPaperCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\GetLastFiscalEntryInfoCommand.cs">
+			<Link>Commands\GetLastFiscalEntryInfoCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Commands\GetStatusOfCurrentReceiptCommand.cs">
+			<Link>Commands\GetStatusOfCurrentReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\OpenDrawerCommand.cs">
+			<Link>Commands\OpenDrawerCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\OpenFiscalReceiptCommand.cs">
+			<Link>Commands\OpenFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Commands\OpenNonFiscalReceiptCommand.cs">
+			<Link>Commands\OpenNonFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\PlaySoundCommand.cs">
+			<Link>Commands\PlaySoundCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\PrintReportCommand.cs">
+			<Link>Commands\PrintReportCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\ProgramItemCommand.cs">
+			<Link>Commands\ProgramItemCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\ReadDateTimeCommand.cs">
+			<Link>Commands\ReadDateTimeCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\ReadErrorCommand.cs">
+			<Link>Commands\ReadErrorCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\ReadStatusCommand.cs">
+			<Link>Commands\ReadStatusCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Commands\RegisterProgrammedItemSaleCommand.cs">
+			<Link>Commands\RegisterProgrammedItemSaleCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\RegisterSaleCommand.cs">
+			<Link>Commands\RegisterSaleCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\SetDateTimeCommand.cs">
+			<Link>Commands\SetDateTimeCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\commands\VoidOpenFiscalReceiptCommand.cs">
+			<Link>Commands\VoidOpenFiscalReceiptCommand.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\core\FiscalIOException.cs">
+			<Link>Core\FiscalIOException.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\core\FiscalResponse.cs">
+			<Link>Core\FiscalResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\core\IFiscalResponse.cs">
+			<Link>Core\IFiscalResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\core\IWrappedMessage.cs">
+			<Link>Core\IWrappedMessage.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\core\WrappedMessage.cs">
+			<Link>Core\WrappedMessage.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Dp25.cs">
+			<Link>Dp25.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Responses\AddTextToFiscalReceiptResponse.cs">
+			<Link>Responses\AddTextToFiscalReceiptResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\CalculateTotalResponse.cs">
+			<Link>Responses\CalculateTotalResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\CashInCashOutResponse.cs">
+			<Link>Responses\CashInCashOutResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\CloseFiscalReceiptResponse.cs">
+			<Link>Responses\CloseFiscalReceiptResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Responses\CommonFiscalResponse.cs">
+			<Link>Responses\CommonFiscalResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\EmptyFiscalResponse.cs">
+			<Link>Responses\EmptyFiscalResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\GetLastFiscalEntryInfoResponse.cs">
+			<Link>Responses\GetLastFiscalEntryInfoResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\KasaGE_2.0\Responses\GetStatusOfCurrentReceiptResponse.cs">
+			<Link>Responses\GetStatusOfCurrentReceiptResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\OpenFiscalReceiptResponse.cs">
+			<Link>Responses\OpenFiscalReceiptResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\PrintReportResponse.cs">
+			<Link>Responses\PrintReportResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\ReadDateTimeResponse.cs">
+			<Link>Responses\ReadDateTimeResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\ReadErrorResponse.cs">
+			<Link>Responses\ReadErrorResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\ReadStatusResponse.cs">
+			<Link>Responses\ReadStatusResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\RegisterSaleResponse.cs">
+			<Link>Responses\RegisterSaleResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\responses\VoidOpenFiscalReceiptResponse.cs">
+			<Link>Responses\VoidOpenFiscalReceiptResponse.cs</Link>
+		</Compile>
+		<Compile Include="..\kasage_2.0\utils\Extensions.cs">
+			<Link>Utils\Extensions.cs</Link>
+		</Compile>
+	</ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

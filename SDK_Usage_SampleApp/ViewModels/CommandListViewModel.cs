@@ -12,7 +12,7 @@ namespace SDK_Usage_SampleApp.ViewModels
 		public CommandListViewModel()
 		{
 			var start = "try{\n\tvar ecr = new Dp25(\"COM1\")";
-			var end = "\n}\ncatch(Exception ex){\n\tMessageBox.Show(ex.Message);\n}";
+			var end = "\n\tecr.Dispose();\n}\ncatch(Exception ex){\n\tMessageBox.Show(ex.Message);\n}";
 			var enter = "\n";
 			var indent = "\t";
 			CommandExamples = new BindableCollection<CommandExample>
@@ -23,7 +23,7 @@ namespace SDK_Usage_SampleApp.ViewModels
 							+ indent + "EmptyFiscalResponse res = ecr.FeedPaper(<lines>);" + end
 				},
 				new CommandExample{
-					Name = "გაყიდვა",
+					Name = "EDITED: გაყიდვა",
 					Code = start + enter
 								+ indent + "ecr.OpenFiscalResponse(\"001\",\"1\",ReceiptType.Sale);" + enter
 								+ indent + "ecr.RegisterSale(\"შოკოლადი KitKat\", 1.20M , 1.00M, TaxCode.A);" + enter
@@ -32,10 +32,11 @@ namespace SDK_Usage_SampleApp.ViewModels
 							+ end
 				},
 				new CommandExample{
-					Name = "გახსნილი ჩეკის გაუქმება",
+					Name = "EDITED: გახსნილი ჩეკის გაუქმება",
 					Code = start + enter
 							+ indent + "ecr.OpenFiscalReceipt();" + enter
-							+ indent + "ecr.VoidOpenFiscalReceipt();"
+							+ indent + "ecr.VoidOpenFiscalReceipt();" + enter
+							+ indent + "ecr.CloseFiscalReceipt();" + enter
 							+ end
 				},
 				new CommandExample{
@@ -69,7 +70,7 @@ namespace SDK_Usage_SampleApp.ViewModels
 							 + end
 				},
 				new CommandExample{
-					Name = "სალაროში ფულის შეტანა/გატანა",
+					Name = "EDITED: სალაროში ფულის შეტანა/გატანა",
 					Code = start + enter
 						    + indent + "//შეტანა" + enter
 							+ indent + "ecr.CashInCashOutOperation(Cash.In, 200.00M);" + enter
@@ -115,7 +116,14 @@ namespace SDK_Usage_SampleApp.ViewModels
 							+ indent + "var impLen = 500;" + enter
 							+ indent + "ecr.OpenDrawer(impLen);"  + enter
 							+ end
-				}
+				},
+				new CommandExample {Name = "NEW: 58 - Registration of sale of a programmed item"},
+				new CommandExample {Name = "NEW: 38 - Open a non-fiscal text receipt"},
+				new CommandExample {Name = "NEW: 39 - Close a non-fiscal text receipt"},
+				new CommandExample {Name = "NEW: 42 - Printing of free text in a non-fiscal text receipt"},
+				new CommandExample {Name = "NEW: 54 - Printing of free text in a fiscal receipt"},
+				new CommandExample {Name = "NEW: 76 - Status of current or last receipt"},
+				new CommandExample {Name = "NEW: 107 - Programming and reading items "},
 			};
 		}
 
@@ -134,6 +142,10 @@ namespace SDK_Usage_SampleApp.ViewModels
 
 	public class CommandExample
 	{
+		public CommandExample()
+		{
+			Code = string.Empty;
+		}
 		public string Name { get; set; }
 		public string Code { get; set; }
 
