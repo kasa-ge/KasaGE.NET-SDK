@@ -17,8 +17,8 @@ namespace SDK_Usage_SampleApp
 	public class AppBootstrapper : BootstrapperBase
 	{
 		private CompositionContainer _container;
-		//private string _portName;
-		//private Dp25 _ecr;
+		private string _portName;
+		private Dp25 _ecr;
 
 		public AppBootstrapper()
 		{
@@ -35,15 +35,23 @@ namespace SDK_Usage_SampleApp
 			);
 
 			var batch = new CompositionBatch();
-			
-			//var portNames = SerialPort.GetPortNames();
-			//var portName = portNames.Length > 0 ? portNames[0] : string.Empty;
-			//var ecr = new Dp25(portName);
+
+			var portNames = SerialPort.GetPortNames();
+			_portName = portNames.Length > 0 ? portNames[0] : string.Empty;
+			try
+			{
+				_ecr = new Dp25(_portName);
+			}
+			catch (Exception ex)
+			{ }
 			var messenger = new MessageAggregator();
-			
+
+			messenger.GetStream<SelectedPortChangedEvent>()
+					.Subscribe(e => _ecr.ChangePort(e.PortName));
+
 			batch.AddExportedValue<IWindowManager>(new WindowManager());
 			batch.AddExportedValue<IMessageAggregator>(messenger);
-			//batch.AddExportedValue<Dp25>(ecr);
+			batch.AddExportedValue<Dp25>(_ecr);
 			batch.AddExportedValue(_container);
 
 			_container.Compose(batch);

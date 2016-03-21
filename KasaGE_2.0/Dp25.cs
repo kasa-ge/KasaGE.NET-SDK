@@ -139,6 +139,19 @@ namespace KasaGE
 		}
 
 
+		/// <summary> 
+		/// Changes port name at runtime. 
+		/// </summary> 
+		/// <param name="portName">Name of the serial port.</param> 
+		public void ChangePort(string portName)
+		{
+			_port.Close();
+			_port.PortName = portName;
+			_port.Open();
+		}
+
+
+
 		/// <summary>
 		/// Executes custom command implementation and returns predefined custom response.
 		/// </summary>
