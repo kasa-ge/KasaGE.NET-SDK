@@ -7,8 +7,8 @@ namespace KasaGE.Core
 {
 	public abstract class WrappedMessage : IWrappedMessage
 	{
-		public abstract int Command { get; }
-		public abstract string Data { get; }
+        public abstract int Command { get; set; }
+        public abstract string Data { get; set; }
 
 		public byte[] GetBytes(int sequence)
 		{

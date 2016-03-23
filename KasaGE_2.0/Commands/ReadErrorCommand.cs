@@ -9,7 +9,7 @@ namespace KasaGE.Commands
 			Command = 100;
 			Data = errorCode + "\t";
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 }

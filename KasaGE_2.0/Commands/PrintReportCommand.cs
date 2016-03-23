@@ -10,8 +10,8 @@ namespace KasaGE.Commands
 			Command = 69;
 			Data = type + "\t";
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 
 	public enum ReportType

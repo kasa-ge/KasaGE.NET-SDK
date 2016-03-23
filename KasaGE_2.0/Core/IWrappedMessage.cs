@@ -2,8 +2,8 @@
 {
 	public interface IWrappedMessage
 	{
-		int Command { get; }
-		string Data { get; }
+        int Command { get; set; }
+        string Data { get; set; }
 		byte[] GetBytes(int sequence);
 	}
 }

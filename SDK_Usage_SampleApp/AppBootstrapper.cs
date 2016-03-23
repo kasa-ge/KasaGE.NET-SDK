@@ -14,82 +14,84 @@ using SDK_Usage_SampleApp.Utils;
 
 namespace SDK_Usage_SampleApp
 {
-	public class AppBootstrapper : BootstrapperBase
-	{
-		private CompositionContainer _container;
-		private string _portName;
-		private Dp25 _ecr;
+    public class AppBootstrapper : BootstrapperBase
+    {
+        private CompositionContainer _container;
+        private string _portName;
+        private Dp25 _ecr;
 
-		public AppBootstrapper()
-		{
-			Initialize();
-		}
+        public AppBootstrapper()
+        {
+            Initialize();
+        }
 
-		protected override void Configure()
-		{
-			_container = new CompositionContainer(new AggregateCatalog(AssemblySource
-					.Instance
-					.Select(x => new AssemblyCatalog(x))
-					.OfType<ComposablePartCatalog>()
-				)
-			);
+        protected override void Configure()
+        {
+            _container = new CompositionContainer(new AggregateCatalog(AssemblySource
+                    .Instance
+                    .Select(x => new AssemblyCatalog(x))
+                    .OfType<ComposablePartCatalog>()
+                )
+            );
 
-			var batch = new CompositionBatch();
+            var batch = new CompositionBatch();
 
-			var portNames = SerialPort.GetPortNames();
-			_portName = portNames.Length > 0 ? portNames[0] : string.Empty;
-			try
-			{
-				_ecr = new Dp25(_portName);
-			}
-			catch (Exception ex)
-			{ }
-			var messenger = new MessageAggregator();
+            var portNames = SerialPort.GetPortNames();
+            _portName = portNames.Length > 0 ? portNames[0] : string.Empty;
+            try
+            {
+                _ecr = new Dp25(_portName);
+            }
+            catch (Exception ex)
+            { }
+            var messenger = new MessageAggregator();
 
-			messenger.GetStream<SelectedPortChangedEvent>()
-					.Subscribe(e => _ecr.ChangePort(e.PortName));
+            messenger.GetStream<SelectedPortChangedEvent>()
+                    .Subscribe(e => _ecr.ChangePort(e.PortName));
 
-			batch.AddExportedValue<IWindowManager>(new WindowManager());
-			batch.AddExportedValue<IMessageAggregator>(messenger);
-			batch.AddExportedValue<Dp25>(_ecr);
-			batch.AddExportedValue(_container);
+            batch.AddExportedValue<IWindowManager>(new WindowManager());
+            batch.AddExportedValue<IMessageAggregator>(messenger);
+            batch.AddExportedValue<Dp25>(_ecr);
+            batch.AddExportedValue(_container);
 
-			_container.Compose(batch);
+            _container.Compose(batch);
 
-		}
+        }
 
-		protected override object GetInstance(Type serviceType, string key)
-		{
-			var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
-			var exports = _container.GetExportedValues<object>(contract).ToList();
-			if (exports.Any())
-				return exports.First();
-			throw new Exception($"Could not locate any instances of contract {contract}.");
-		}
+        protected override object GetInstance(Type serviceType, string key)
+        {
+            var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
+            var exports = _container.GetExportedValues<object>(contract).ToList();
+            if (exports.Any())
+                return exports.First();
+            throw new Exception("Could not locate any instances of contract {contract}.");
+        }
 
-		protected override IEnumerable<object> GetAllInstances(Type serviceType)
-		{
-			return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
-		}
+        protected override IEnumerable<object> GetAllInstances(Type serviceType)
+        {
+            return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
+        }
 
-		protected override void BuildUp(object instance)
-		{
-			_container.SatisfyImportsOnce(instance);
-		}
+        protected override void BuildUp(object instance)
+        {
+            _container.SatisfyImportsOnce(instance);
+        }
 
-		protected override void OnStartup(object sender, StartupEventArgs e)
-		{
-			DisplayRootViewFor<IShell>();
-			var messenger = _container.GetExport<IMessageAggregator>();
-			messenger?
-				.Value?
-				.Publish(new ChangeSelectedPortCommand(_portName));
-		}
+        protected override void OnStartup(object sender, StartupEventArgs e)
+        {
+            DisplayRootViewFor<IShell>();
+            var messenger = _container.GetExport<IMessageAggregator>();
+            if (messenger != null && messenger.Value != null)
+                messenger
+                    .Value
+                    .Publish(new ChangeSelectedPortCommand(_portName));
+        }
 
-		protected override void OnExit(object sender, EventArgs e)
-		{
-			_ecr?.Dispose();
-		}
-	}
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            if (_ecr != null)
+                _ecr.Dispose();
+        }
+    }
 
 }

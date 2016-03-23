@@ -27,7 +27,10 @@ namespace SDK_Usage_SampleApp.ViewModels
 		public BindableCollection<SaleItem> Items { get; set; }
 
 
-		public bool CanExecuteCommands => Items.Count > 0;
+	    public bool CanExecuteCommands
+	    {
+	        get { return Items.Count > 0; }
+	    }
 
 		public void ExecuteCommands()
 		{

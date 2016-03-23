@@ -10,7 +10,7 @@ namespace KasaGE.Commands
 			Data = string.Empty;
 		}
 
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set; }
+	    public override string Data { get; set; }
 	}
 }

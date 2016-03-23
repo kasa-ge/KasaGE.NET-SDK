@@ -10,7 +10,7 @@ namespace KasaGE.Commands
 			Command = 61;
 			Data = dateTime.ToString("dd-MM-yy HH:mm:ss") + "\t";
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 }

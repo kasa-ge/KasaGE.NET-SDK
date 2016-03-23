@@ -31,7 +31,7 @@ namespace KasaGE.Core
 				Data = dataBytes.Skip(2).Take(dataBytes.Length - 2).ToArray();
 		}
 
-		public bool CommandPassed => string.IsNullOrEmpty(ErrorCode);
+        public bool CommandPassed { get { return string.IsNullOrEmpty(ErrorCode); } }
 		public string ErrorCode { get; set; }
 		protected byte[] Data { get; set; }
 		protected string[] GetDataValues()

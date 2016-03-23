@@ -20,8 +20,8 @@ namespace KasaGE.Commands
 			Command = 48;
 			Data = (new object[] { opCode, opPwd, tillNumber, type }).StringJoin("\t");
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 	public enum ReceiptType
 	{

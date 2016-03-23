@@ -115,9 +115,9 @@ namespace KasaGE
 		private void CheckStatusOnErrors(byte[] statusBytes)
 		{
 			if (statusBytes == null)
-				throw new ArgumentNullException(nameof(statusBytes));
+				throw new ArgumentNullException("statusBytes");
 			if (statusBytes.Length == 0)
-				throw new ArgumentException("Argument is empty collection", nameof(statusBytes));
+				throw new ArgumentException("Argument is empty collection", "statusBytes");
 			if ((statusBytes[0] & 0x20) > 0)
 				throw new FiscalIOException("General error - this is OR of all errors marked with #");
 			if ((statusBytes[0] & 0x2) > 0)

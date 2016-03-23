@@ -15,7 +15,7 @@ namespace KasaGE.Commands
 			Command = 58;
 			Data = (new object[] { pluCode, qty, price, discountType, discountValue }).StringJoin("\t");
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 }

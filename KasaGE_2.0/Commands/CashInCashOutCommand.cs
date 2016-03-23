@@ -10,8 +10,8 @@ namespace KasaGE.Commands
 			Command = 70;
 		    Data = (new object[] {type, amount}).StringJoin("\t");
 		}
-		public override int Command { get; }
-		public override string Data { get; }
+		public override int Command { get; set;}
+		public override string Data { get; set;}
 	}
 
 	public enum Cash

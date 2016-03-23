@@ -14,9 +14,9 @@ namespace KasaGE.Commands
             Command = 107;
             Data = (new object[] { "P", plu, taxGr, dep, group, (int)priceType, price, "", quantity, "", "", "", "", name }).StringJoin("\t");
         }
-        public override int Command { get; }
+        public override int Command { get; set;}
 
-        public override string Data { get; }
+        public override string Data { get; set;}
     }
     public enum PriceType
     {
