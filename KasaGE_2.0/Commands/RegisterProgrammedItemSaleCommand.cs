@@ -8,7 +8,7 @@ namespace KasaGE.Commands
 		public RegisterProgrammedItemSaleCommand(int pluCode, decimal qty, decimal price)
 		{
 			Command = 58;
-			Data = (new object[] { pluCode, qty, price }).StringJoin("\t");
+			Data = (new object[] { pluCode, qty, price, 0, string.Empty }).StringJoin("\t");
 		}
 		public RegisterProgrammedItemSaleCommand(int pluCode, decimal qty, decimal price, int discountType, decimal discountValue)
 		{
