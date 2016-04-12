@@ -10,243 +10,13 @@ using KasaGE.Responses;
 
 namespace KasaGE
 {
-    public interface IDp25
-    {
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <filterpriority>2</filterpriority>
-        void Dispose();
-
-        /// <summary> 
-        /// Changes port name at runtime. 
-        /// </summary> 
-        /// <param name="portName">Name of the serial port.</param> 
-        void ChangePort(string portName);
-
-        /// <summary>
-        /// Executes custom command implementation and returns predefined custom response.
-        /// </summary>
-        /// <typeparam name="T">Response Type. Must be a child of an abstract class FiscalResponse</typeparam>
-        /// <param name="cmd">Command to execute. Must be a child of an abstract class WrappedMessage</param>
-        /// <returns>T</returns>
-        T ExecuteCustomCommand<T>(WrappedMessage cmd) where T : FiscalResponse;
-
-        /// <summary>
-        /// Opens non fiscal text receipt.
-        /// </summary>
-        /// <returns>CommonFiscalResponse</returns>
-        CommonFiscalResponse OpenNonFiscalReceipt();
-
-        /// <summary>
-        /// Printing of free text in a non-fiscal text receipt
-        /// </summary>
-        /// <param name="text">Up to 30 symbols.</param>
-        /// <returns></returns>
-        CommonFiscalResponse AddTextToNonFiscalReceipt(string text);
-
-        /// <summary>
-        /// Closes non fiscal text receipt.
-        /// </summary>
-        /// <returns>CommonFiscalResponse</returns>
-        CommonFiscalResponse CloseNonFiscalReceipt();
-
-        /// <summary>
-        /// Opens Sales Fiscal Receipt
-        /// </summary>
-        /// <param name="opCode">Operator code</param>
-        /// <param name="opPwd">Operator password</param>
-        /// <returns>OpenFiscalReceiptResponse</returns>
-        OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd);
-
-        /// <summary>
-        /// Opens Fiscal Receipt
-        /// </summary>
-        /// <param name="opCode">Operator code</param>
-        /// <param name="opPwd">Operator password</param>
-        /// <param name="type">Receipt type</param>
-        /// <returns>OpenFiscalReceiptResponse</returns>
-        OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd, ReceiptType type);
-
-        /// <summary>
-        /// Opens Fiscal Receipt
-        /// </summary>
-        /// <param name="opCode">Operator code</param>
-        /// <param name="opPwd">Operator password</param>
-        /// <param name="type">Receipt type</param>
-        /// <param name="tillNumber">Number of point of sale (1...999). Default: Logical number of the ECR in the workplace; </param>
-        /// <returns>OpenFiscalReceiptResponse</returns>
-        OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd, ReceiptType type, int tillNumber);
-
-        /// <summary>
-        /// Adds new Item to open receipt
-        /// </summary>
-        /// <param name="pluName">Item name (up to 32 symbols)</param>
-        /// <param name="price">Product price. With sign '-' at void operations;</param>
-        /// <param name="departmentNumber">Between 1 and 16.</param>
-        /// <param name="quantity"> Quantity. NOTE: Max value: {Quantity} * {Price} is 9999999.99</param>
-        /// <param name="taxCode">Optional Parameter. Tax code: 1-A, 2-B, 3-C; default = TaxCode.A</param>
-        /// <returns>RegisterSaleResponse</returns>
-        RegisterSaleResponse RegisterSale(string pluName, decimal price, decimal quantity, int departmentNumber, TaxCode taxCode = TaxCode.A);
-
-        /// <summary>
-        /// Adds new Item to open receipt
-        /// </summary>
-        /// <param name="pluName">Item name (up to 32 symbols)</param>
-        /// <param name="price">Product price. With sign '-' at void operations;</param>
-        /// <param name="departmentNumber">Between 1 and 16.</param>
-        /// <param name="quantity"> Quantity. NOTE: Max value: {Quantity} * {Price} is 9999999.99</param>
-        /// <param name="discountType">Type of the discount.</param>
-        /// <param name="discountValue">Discount Value. Percentage ( 0.00 - 100.00 ) for percentage operations; Amount ( 0.00 - 9999999.99 ) for value operations; Note: If {DiscountType} is given, {DiscountValue} must contain value. </param>
-        /// <param name="taxCode">Optional Parameter. Tax code: 1-A, 2-B, 3-C; default = TaxCode.A</param>
-        /// <returns>RegisterSaleResponse</returns>
-        RegisterSaleResponse RegisterSale(string pluName, decimal price, decimal quantity, int departmentNumber, DiscountType discountType, decimal discountValue, TaxCode taxCode = TaxCode.A);
-
-        /// <summary>
-        /// Adds new Item to open receipt
-        /// </summary>
-        /// <param name="pluCode">The code of the item (1 - 100000). With sign '-' at void operations; </param>
-        /// <param name="price"> Price of the item (0.01 - 9999999.99). Default: programmed price of the item; </param>
-        /// <param name="quantity"> Quantity of the item (0.001 - 99999.999) </param>
-        /// <returns>RegisterSaleResponse</returns>
-        RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal price, decimal quantity);
-
-        /// <summary>
-        /// Adds new Item to open receipt
-        /// </summary>
-        /// <param name="pluCode">The code of the item (1 - 100000). With sign '-' at void operations; </param>
-        /// <param name="price"> Price of the item (0.01 - 9999999.99). Default: programmed price of the item; </param>
-        /// <param name="quantity"> Quantity of the item (0.001 - 99999.999) </param>
-        /// <param name="discountType">Type of the discount.</param>
-        /// <param name="discountValue">Discount Value. Percentage ( 0.00 - 100.00 ) for percentage operations; Amount ( 0.00 - 9999999.99 ) for value operations; Note: If {DiscountType} is given, {DiscountValue} must contain value. </param>
-        /// <returns>RegisterSaleResponse</returns>
-        RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal price, decimal quantity,
-            DiscountType discountType, decimal discountValue);
-
-        /// <summary>
-        /// Payments and calculation of the total sum
-        /// </summary>
-        /// <param name="paymentMode"> Type of payment. Default: 'Cash' </param>
-        /// <returns>CalculateTotalResponse</returns>
-        CalculateTotalResponse Total(PaymentMode paymentMode = PaymentMode.Cash);
-
-        /// <summary>
-        /// All void of a fiscal receipt. <br/>
-        /// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
-        /// </summary>
-        /// <returns>VoidOpenFiscalReceiptResponse</returns>
-        VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt();
-
-        AddTextToFiscalReceiptResponse AddTextToFiscalReceipt(string text);
-
-        /// <summary>
-        ///  Closes open fiscal receipt.
-        /// </summary>
-        /// <returns>CloseFiscalReceiptResponse</returns>
-        CloseFiscalReceiptResponse CloseFiscalReceipt();
-
-        /// <summary>
-        /// Get the information on the last fiscal entry.
-        /// </summary>
-        /// <param name="type">FiscalEntryInfoType. Default: FiscalEntryInfoType.CashDebit</param>
-        /// <returns>GetLastFiscalEntryInfoResponse</returns>
-        GetLastFiscalEntryInfoResponse GetLastFiscalEntryInfo(FiscalEntryInfoType type = FiscalEntryInfoType.CashDebit);
-
-        /// <summary>
-        /// Cash in and Cash out operations
-        /// </summary>
-        /// <param name="operationType">Type of operation</param>
-        /// <param name="amount">The sum</param>
-        /// <returns>CashInCashOutResponse</returns>
-        CashInCashOutResponse CashInCashOutOperation(Cash operationType, decimal amount);
-
-        /// <summary>
-        /// Reads the status of the device.
-        /// </summary>
-        /// <returns>ReadStatusResponse</returns>
-        ReadStatusResponse ReadStatus();
-
-        /// <summary>
-        /// Feeds blank paper.
-        /// </summary>
-        /// <param name="lines">Line Count 1 to 99; default =  1;</param>
-        /// <returns>EmptyFiscalResponse</returns>
-        EmptyFiscalResponse FeedPaper(int lines = 1);
-
-        /// <summary>
-        /// Prints buffer
-        /// </summary>
-        /// <returns>EmptyFiscalResponse</returns>
-        EmptyFiscalResponse PrintBuffer();
-
-        /// <summary>
-        /// Reads an error code  explanation from ECR.
-        /// </summary>
-        /// <param name="errorCode">Code of the error</param>
-        /// <returns>ReadErrorResponse</returns>
-        ReadErrorResponse ReadError(string errorCode);
-
-        /// <summary>
-        /// ECR beeps with given interval and frequency.
-        /// </summary>
-        /// <param name="frequency">in hertzes</param>
-        /// <param name="interval">in milliseconds</param>
-        /// <returns>EmptyFiscalResponse</returns>
-        EmptyFiscalResponse PlaySound(int frequency, int interval);
-
-        /// <summary>
-        /// Prints X or Z Report and returns some stats.
-        /// </summary>
-        /// <param name="type">ReportType</param>
-        /// <returns>PrintReportResponse</returns>
-        PrintReportResponse PrintReport(ReportType type);
-
-        /// <summary>
-        /// Opens the cash drawer if such is connected.
-        /// </summary>
-        /// <param name="impulseLength"> The length of the impulse in milliseconds. </param>
-        /// <returns>EmptyFiscalResponse</returns>
-        EmptyFiscalResponse OpenDrawer(int impulseLength);
-
-        /// <summary>
-        /// Sets date and time in ECR.
-        /// </summary>
-        /// <param name="dateTime">DateTime to set.</param>
-        /// <returns>EmptyFiscalResponse</returns>
-        EmptyFiscalResponse SetDateTime(DateTime dateTime);
-
-        /// <summary>
-        /// Reads current date and time from ECR.
-        /// </summary>
-        /// <returns>ReadDateTimeResponse</returns>
-        ReadDateTimeResponse ReadDateTime();
-
-        /// <summary>
-        /// Gets the status of current or last receipt 
-        /// </summary>
-        /// <returns>GetStatusOfCurrentReceiptResponse</returns>
-        GetStatusOfCurrentReceiptResponse GetStatusOfCurrentReceipt();
-
-        /// <summary>
-        /// Defines items in ECR
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="plu"></param>
-        /// <param name="taxGr"></param>
-        /// <param name="dep"></param>
-        /// <param name="group"></param>
-        /// <param name="price"></param>
-        /// <param name="quantity"></param>
-        /// <param name="priceType"></param>
-        /// <returns></returns>
-        EmptyFiscalResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice);
-    }
+    
 
 
 	/// <summary>
 	/// ECR Device DP25 Implementation (API)
 	/// </summary>
-	public class Dp25 : IDisposable, IDp25
+	public class Dp25 : IDisposable
 	{
 		private SerialPort _port;
 		private int _sequence = 32;
@@ -333,7 +103,7 @@ namespace KasaGE
 				catch (Exception)
 				{
 					if (r >= 2)
-						throw;
+                         throw;
 					_queue.Clear();
 				}
 			}
@@ -430,9 +200,16 @@ namespace KasaGE
 				, bytes => new CommonFiscalResponse(bytes));
 		}
 
-		#endregion
+        #endregion
 
-		#region FiscalCommands
+        #region FiscalCommands
+
+
+
+        public SubTotalResponse SubTotal()
+        {
+            return (SubTotalResponse)SendMessage(new SubTotalCommand(), bytes => new SubTotalResponse(bytes));
+        }
 
 		/// <summary>
 		/// Opens Sales Fiscal Receipt
@@ -521,12 +298,11 @@ namespace KasaGE
 		/// Adds new Item to open receipt
 		/// </summary>
 		/// <param name="pluCode">The code of the item (1 - 100000). With sign '-' at void operations; </param>
-		/// <param name="price"> Price of the item (0.01 - 9999999.99). Default: programmed price of the item; </param>
 		/// <param name="quantity"> Quantity of the item (0.001 - 99999.999) </param>
 		/// <returns>RegisterSaleResponse</returns>
-		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal price, decimal quantity)
+		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity)
 		{
-			return (RegisterSaleResponse)SendMessage(new RegisterProgrammedItemSaleCommand(pluCode, price, quantity)
+			return (RegisterSaleResponse)SendMessage(new RegisterProgrammedItemSaleCommand(pluCode, quantity)
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 		/// <summary>
@@ -553,16 +329,28 @@ namespace KasaGE
 		/// <returns>CalculateTotalResponse</returns>
 		public CalculateTotalResponse Total(PaymentMode paymentMode = PaymentMode.Cash)
 		{
-			return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode)
+			return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, 0)
 				, bytes => new CalculateTotalResponse(bytes));
 		}
 
-		/// <summary>
-		/// All void of a fiscal receipt. <br/>
-		/// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
+        /// <summary>
+		/// Payments and calculation of the total sum
 		/// </summary>
-		/// <returns>VoidOpenFiscalReceiptResponse</returns>
-		public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
+		/// <param name="paymentMode"> Type of payment. </param>
+        /// <param name="paymentMode"> Amount to pay (0.00 - 9999999.99). Default: the residual sum of the receipt; </param>
+		/// <returns>CalculateTotalResponse</returns>
+		public CalculateTotalResponse Total(PaymentMode paymentMode, decimal cashMoney)
+        {
+            return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, cashMoney)
+                , bytes => new CalculateTotalResponse(bytes));
+        }
+
+        /// <summary>
+        /// All void of a fiscal receipt. <br/>
+        /// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
+        /// </summary>
+        /// <returns>VoidOpenFiscalReceiptResponse</returns>
+        public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
 		{
 			return (VoidOpenFiscalReceiptResponse)SendMessage(new VoidOpenFiscalReceiptCommand()
 				, bytes => new VoidOpenFiscalReceiptResponse(bytes));

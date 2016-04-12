@@ -8,11 +8,19 @@ namespace KasaGE.Responses
 		{
 			var values = GetDataValues();
 			if (values.Length == 0) return;
-			SlipNumber = int.Parse(values[0]);
+            int result;
+            if (int.TryParse(values[0], out result))
+                SlipNumber = result;
+            if (int.TryParse(values[1], out result))
+                DocNumber = result;
 		}
 		/// <summary>
 		/// Current slip number - unique number of the fiscal receipt 
 		/// </summary>
 		public int SlipNumber { get; set; }
-	}
+        /// <summary>
+		/// Global number of all documents 
+		/// </summary>
+		public int DocNumber { get; set; }
+    }
 }
