@@ -77,6 +77,7 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Behaviours\AvalonEditBehaviour.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Messaging\Commands\ChangeSelectedPortCommand.cs" />
     <Compile Include="Messaging\Events\EcrRespondedEvent.cs" />
     <Compile Include="Messaging\Events\SelectedPortChangedEvent.cs" />
