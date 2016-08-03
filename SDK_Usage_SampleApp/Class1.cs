@@ -8,7 +8,7 @@ namespace SDK_Usage_SampleApp
 		{
 			var ecr = new Dp25("COM3");
 			ecr.OpenFiscalReceipt("1", "1");
-			ecr.RegisterProgrammedItemSale(121, 45.00M, 1.0M);
+//			ecr.RegisterProgrammedItemSale);
 			ecr.Total();
 			ecr.CloseFiscalReceipt();
 			ecr.Dispose();

@@ -67,6 +67,7 @@
     <Compile Include="Commands\RegisterProgrammedItemSaleCommand.cs" />
     <Compile Include="Commands\RegisterSaleCommand.cs" />
     <Compile Include="Commands\SetDateTimeCommand.cs" />
+    <Compile Include="Commands\SubTotalCommand.cs" />
     <Compile Include="Commands\VoidOpenFiscalReceiptCommand.cs" />
     <Compile Include="Core\FiscalIOException.cs" />
     <Compile Include="Core\FiscalResponse.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Responses\ReadErrorResponse.cs" />
     <Compile Include="Responses\ReadStatusResponse.cs" />
     <Compile Include="Responses\RegisterSaleResponse.cs" />
+    <Compile Include="Responses\SubTotalResponse.cs" />
     <Compile Include="Responses\VoidOpenFiscalReceiptResponse.cs" />
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="Utils\FrameworkExt.cs" />

@@ -5,10 +5,10 @@ namespace KasaGE.Commands
 {
 	internal class RegisterProgrammedItemSaleCommand : WrappedMessage
 	{
-		public RegisterProgrammedItemSaleCommand(int pluCode, decimal qty, decimal price)
+		public RegisterProgrammedItemSaleCommand(int pluCode, decimal qty)
 		{
 			Command = 58;
-			Data = (new object[] { pluCode, qty, price }).StringJoin("\t");
+			Data = (new object[] { pluCode, qty, string.Empty, string.Empty, string.Empty }).StringJoin("\t");
 		}
 		public RegisterProgrammedItemSaleCommand(int pluCode, decimal qty, decimal price, int discountType, decimal discountValue)
 		{

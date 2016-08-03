@@ -10,7 +10,9 @@ using KasaGE.Responses;
 
 namespace KasaGE
 {
-	///----
+    
+
+
 	/// <summary>
 	/// ECR Device DP25 Implementation (API)
 	/// </summary>
@@ -36,6 +38,7 @@ namespace KasaGE
 			_port.Open();
 		}
 
+	    
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
@@ -100,7 +103,7 @@ namespace KasaGE
 				catch (Exception)
 				{
 					if (r >= 2)
-						throw;
+                         throw;
 					_queue.Clear();
 				}
 			}
@@ -197,9 +200,16 @@ namespace KasaGE
 				, bytes => new CommonFiscalResponse(bytes));
 		}
 
-		#endregion
+        #endregion
 
-		#region FiscalCommands
+        #region FiscalCommands
+
+
+
+        public SubTotalResponse SubTotal()
+        {
+            return (SubTotalResponse)SendMessage(new SubTotalCommand(), bytes => new SubTotalResponse(bytes));
+        }
 
 		/// <summary>
 		/// Opens Sales Fiscal Receipt
@@ -288,12 +298,11 @@ namespace KasaGE
 		/// Adds new Item to open receipt
 		/// </summary>
 		/// <param name="pluCode">The code of the item (1 - 100000). With sign '-' at void operations; </param>
-		/// <param name="price"> Price of the item (0.01 - 9999999.99). Default: programmed price of the item; </param>
 		/// <param name="quantity"> Quantity of the item (0.001 - 99999.999) </param>
 		/// <returns>RegisterSaleResponse</returns>
-		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal price, decimal quantity)
+		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity)
 		{
-			return (RegisterSaleResponse)SendMessage(new RegisterProgrammedItemSaleCommand(pluCode, price, quantity)
+			return (RegisterSaleResponse)SendMessage(new RegisterProgrammedItemSaleCommand(pluCode, quantity)
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 		/// <summary>
@@ -320,16 +329,28 @@ namespace KasaGE
 		/// <returns>CalculateTotalResponse</returns>
 		public CalculateTotalResponse Total(PaymentMode paymentMode = PaymentMode.Cash)
 		{
-			return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode)
+			return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, 0)
 				, bytes => new CalculateTotalResponse(bytes));
 		}
 
-		/// <summary>
-		/// All void of a fiscal receipt. <br/>
-		/// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
+        /// <summary>
+		/// Payments and calculation of the total sum
 		/// </summary>
-		/// <returns>VoidOpenFiscalReceiptResponse</returns>
-		public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
+		/// <param name="paymentMode"> Type of payment. </param>
+        /// <param name="paymentMode"> Amount to pay (0.00 - 9999999.99). Default: the residual sum of the receipt; </param>
+		/// <returns>CalculateTotalResponse</returns>
+		public CalculateTotalResponse Total(PaymentMode paymentMode, decimal cashMoney)
+        {
+            return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, cashMoney)
+                , bytes => new CalculateTotalResponse(bytes));
+        }
+
+        /// <summary>
+        /// All void of a fiscal receipt. <br/>
+        /// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
+        /// </summary>
+        /// <returns>VoidOpenFiscalReceiptResponse</returns>
+        public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
 		{
 			return (VoidOpenFiscalReceiptResponse)SendMessage(new VoidOpenFiscalReceiptCommand()
 				, bytes => new VoidOpenFiscalReceiptResponse(bytes));

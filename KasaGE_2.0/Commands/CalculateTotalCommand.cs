@@ -1,14 +1,16 @@
 ﻿using KasaGE.Core;
+using KasaGE.Utils;
 
 namespace KasaGE.Commands
 {
 	internal class CalculateTotalCommand : WrappedMessage
 	{
-		public CalculateTotalCommand(int paymentMode)
+		public CalculateTotalCommand(int paymentMode, decimal cashMoney)
 		{
-			Command = 53;
-			Data = paymentMode + "\t\t";
-		}
+            var cashMoneyParam = (cashMoney == 0 ? string.Empty : cashMoney.ToString());
+            Command = 53;
+            Data = (new object[] { paymentMode, cashMoneyParam }).StringJoin("\t");
+        }
 		public override int Command { get; set;}
 		public override string Data { get; set;}
 	}

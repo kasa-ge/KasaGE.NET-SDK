@@ -112,6 +112,9 @@
     <Compile Include="..\kasage_2.0\commands\SetDateTimeCommand.cs">
       <Link>Commands\SetDateTimeCommand.cs</Link>
     </Compile>
+    <Compile Include="..\kasage_2.0\commands\SubTotalCommand.cs">
+      <Link>Commands\SubTotalCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\VoidOpenFiscalReceiptCommand.cs">
       <Link>Commands\VoidOpenFiscalReceiptCommand.cs</Link>
     </Compile>
@@ -174,6 +177,9 @@
     </Compile>
     <Compile Include="..\kasage_2.0\responses\RegisterSaleResponse.cs">
       <Link>Responses\RegisterSaleResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\responses\SubTotalResponse.cs">
+      <Link>Responses\SubTotalResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\responses\VoidOpenFiscalReceiptResponse.cs">
       <Link>Responses\VoidOpenFiscalReceiptResponse.cs</Link>
