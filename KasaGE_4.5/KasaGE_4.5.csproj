@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="..\kasage_2.0\commands\SubTotalCommand.cs">
       <Link>Commands\SubTotalCommand.cs</Link>
     </Compile>
@@ -56,8 +55,6 @@
       <Link>Responses\SubTotalResponse.cs</Link>
     </Compile>
     <Compile Include="Printer.cs" />
-=======
->>>>>>> master
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
