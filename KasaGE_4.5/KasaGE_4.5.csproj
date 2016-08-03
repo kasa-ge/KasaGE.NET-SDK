@@ -29,7 +29,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="..\kasage_2.0\commands\SubTotalCommand.cs">
       <Link>Commands\SubTotalCommand.cs</Link>
     </Compile>
@@ -48,6 +56,8 @@
       <Link>Responses\SubTotalResponse.cs</Link>
     </Compile>
     <Compile Include="Printer.cs" />
+=======
+>>>>>>> master
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
