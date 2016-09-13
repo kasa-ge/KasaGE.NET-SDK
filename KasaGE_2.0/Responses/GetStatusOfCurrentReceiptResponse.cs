@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using KasaGE.Core;
+using System;
 
 namespace KasaGE.Responses
 {
@@ -37,12 +38,12 @@ namespace KasaGE.Responses
 					Value = "Unknown";
 					break;
 			}
-			Items = int.Parse(values[1]);
-			Amount = decimal.Parse(values[2], CultureInfo.InvariantCulture);
-			Sum = decimal.Parse(values[3], CultureInfo.InvariantCulture);
-			SlipNumber = int.Parse(values[4]);
-			DocNumber = int.Parse(values[5]);
-		}
+            Items = String.IsNullOrEmpty(values[1]) ? 0 : int.Parse(values[1]);
+            Amount = String.IsNullOrEmpty(values[2]) ? 0 : decimal.Parse(values[2], CultureInfo.InvariantCulture);
+            Sum = String.IsNullOrEmpty(values[3]) ? 0 : decimal.Parse(values[3], CultureInfo.InvariantCulture);
+            SlipNumber = String.IsNullOrEmpty(values[4]) ? 0 : int.Parse(values[4]);
+            DocNumber = String.IsNullOrEmpty(values[5]) ? 0 : int.Parse(values[5]);
+        }
 
 		/// <summary>
 		/// Status value of current or last receipt
