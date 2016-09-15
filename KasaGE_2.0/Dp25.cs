@@ -314,11 +314,11 @@ namespace KasaGE
 		/// <param name="discountType">Type of the discount.</param>
 		/// <param name="discountValue">Discount Value. Percentage ( 0.00 - 100.00 ) for percentage operations; Amount ( 0.00 - 9999999.99 ) for value operations; Note: If {DiscountType} is given, {DiscountValue} must contain value. </param>
 		/// <returns>RegisterSaleResponse</returns>
-		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal price, decimal quantity,
+		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity, decimal price,
 			DiscountType discountType, decimal discountValue)
 		{
 			return (RegisterSaleResponse)SendMessage(
-				new RegisterProgrammedItemSaleCommand(pluCode, price, quantity, (int)discountType, discountValue)
+				new RegisterProgrammedItemSaleCommand(pluCode, quantity, price, (int)discountType, discountValue)
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 
@@ -527,6 +527,22 @@ namespace KasaGE
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
-		#endregion
-	}
+        /// <summary>
+        /// Programming. #255
+        /// </summary>
+        /// <param name="name">Variable name</param>
+        /// <param name="index">Used for index if variable is array. If variable is not array, "Index" must be left blank</param>
+        /// <param name="value">If this parameter is blank, ECR will return current value (Answer(2)). If the value is set, then ECR will program this value (Answer(1))</param>
+        /// <returns>ProgrammingResponse</returns>
+        public ProgrammingResponse Programming(string name, string index, string value)
+        {
+            return (ProgrammingResponse)SendMessage(
+                new ProgrammingCommand(name
+                                        , index
+                                        , value)
+                , bytes => new ProgrammingResponse(bytes));
+        }
+
+        #endregion
+    }
 }

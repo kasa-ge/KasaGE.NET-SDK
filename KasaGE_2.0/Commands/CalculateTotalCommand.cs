@@ -1,5 +1,6 @@
 ﻿using KasaGE.Core;
 using KasaGE.Utils;
+using System.Globalization;
 
 namespace KasaGE.Commands
 {
@@ -7,7 +8,8 @@ namespace KasaGE.Commands
 	{
 		public CalculateTotalCommand(int paymentMode, decimal cashMoney)
 		{
-            var cashMoneyParam = (cashMoney == 0 ? string.Empty : cashMoney.ToString());
+            NumberFormatInfo Nfi = new NumberFormatInfo() { NumberDecimalSeparator = "." };
+            var cashMoneyParam = (cashMoney == 0 ? string.Empty : cashMoney.ToString(Nfi));
             Command = 53;
             Data = (new object[] { paymentMode, cashMoneyParam }).StringJoin("\t");
         }
