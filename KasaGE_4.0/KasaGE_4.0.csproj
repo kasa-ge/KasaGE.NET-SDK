@@ -33,12 +33,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
-	<PropertyGroup>
-		<SignAssembly>true</SignAssembly>
-	</PropertyGroup>
-	<PropertyGroup>
-		<AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -93,6 +93,9 @@
     </Compile>
     <Compile Include="..\kasage_2.0\commands\ProgramItemCommand.cs">
       <Link>Commands\ProgramItemCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Commands\ProgrammingCommand.cs">
+      <Link>Commands\ProgrammingCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\ReadDateTimeCommand.cs">
       <Link>Commands\ReadDateTimeCommand.cs</Link>
@@ -165,6 +168,9 @@
     </Compile>
     <Compile Include="..\kasage_2.0\responses\PrintReportResponse.cs">
       <Link>Responses\PrintReportResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\KasaGE_2.0\Responses\ProgrammingResponse.cs">
+      <Link>Responses\ProgrammingResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\responses\ReadDateTimeResponse.cs">
       <Link>Responses\ReadDateTimeResponse.cs</Link>
