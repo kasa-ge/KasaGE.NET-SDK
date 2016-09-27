@@ -30,12 +30,12 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
-	<PropertyGroup>
-		<SignAssembly>true</SignAssembly>
-	</PropertyGroup>
-	<PropertyGroup>
-		<AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="LinqBridge, Version=1.3.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
@@ -61,6 +61,7 @@
     <Compile Include="Commands\PlaySoundCommand.cs" />
     <Compile Include="Commands\PrintReportCommand.cs" />
     <Compile Include="Commands\ProgramItemCommand.cs" />
+    <Compile Include="Commands\ProgrammingCommand.cs" />
     <Compile Include="Commands\ReadDateTimeCommand.cs" />
     <Compile Include="Commands\ReadErrorCommand.cs" />
     <Compile Include="Commands\ReadStatusCommand.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Responses\GetStatusOfCurrentReceiptResponse.cs" />
     <Compile Include="Responses\OpenFiscalReceiptResponse.cs" />
     <Compile Include="Responses\PrintReportResponse.cs" />
+    <Compile Include="Responses\ProgrammingResponse.cs" />
     <Compile Include="Responses\ReadDateTimeResponse.cs" />
     <Compile Include="Responses\ReadErrorResponse.cs" />
     <Compile Include="Responses\ReadStatusResponse.cs" />
