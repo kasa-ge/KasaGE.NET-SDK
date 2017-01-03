@@ -5,12 +5,13 @@ using System.IO.Ports;
 using System.Linq;
 using System.Threading;
 using KasaGE.Commands;
+using KasaGE.Communicators;
 using KasaGE.Core;
 using KasaGE.Responses;
 
 namespace KasaGE
 {
-    
+
 
 
 	/// <summary>
@@ -18,142 +19,50 @@ namespace KasaGE
 	/// </summary>
 	public class Dp25 : IDisposable
 	{
-		private SerialPort _port;
-		private int _sequence = 32;
+		private readonly ICommunicate _communicator;
+		private int _sequence = 33;
 		private bool _innerReadStatusExecuted;
-		private readonly Queue<byte> _queue;
 
 		/// <summary>
-		/// constructor
+		/// construct and communicate via COM (RS232 Serial Port)
 		/// </summary>
 		/// <param name="portName"></param>
 		public Dp25(string portName)
 		{
-			_queue = new Queue<byte>();
-			_port = new SerialPort(portName, 115200, Parity.None, 8, StopBits.One)
-			{
-				ReadTimeout = 500,
-				WriteTimeout = 500
-			};
-			_port.Open();
+			_communicator = new SerialCommunicator(portName);
+		}
+		/// <summary>
+		/// construct and communicate via LAN (TCP/IP)
+		/// </summary>
+		/// <param name="hostname">ip address of ecr device</param>
+		public Dp25(string hostname, int port)
+		{
+			_communicator = new LANCommunicator(hostname,port);
 		}
 
-	    
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
 		/// <filterpriority>2</filterpriority>
 		public void Dispose()
 		{
-			if (_port == null) return;
-			if (_port.IsOpen)
-				_port.Close();
-			_port.Dispose();
-			_port = null;
+			_communicator.Dispose();
 		}
 
 
-		private bool ReadByte()
+		private IFiscalResponse ExecuteCommand(IWrappedMessage msg, Func<byte[], IFiscalResponse> responseFactory)
 		{
-			var b = _port.ReadByte();
-			_queue.Enqueue((byte)b);
-			return b != 0x03;
-		}
-
-		private IFiscalResponse SendMessage(IWrappedMessage msg, Func<byte[], IFiscalResponse> responseFactory)
-		{
-			if (_innerReadStatusExecuted)
-				return _SendMessage(msg, responseFactory);
-
-			_SendMessage(new ReadStatusCommand(), bytes => null);
-			_innerReadStatusExecuted = true;
-			return _SendMessage(msg, responseFactory);
-		}
-
-		private IFiscalResponse _SendMessage(IWrappedMessage msg, Func<byte[], IFiscalResponse> responseFactory)
-		{
-			IFiscalResponse response = null;
-			byte[] lastStatusBytes = null;
-			var packet = msg.GetBytes(_sequence);
-			for (var r = 0; r < 3; r++)
+			if (!_innerReadStatusExecuted)
 			{
-				try
-				{
-					_port.Write(packet, 0, packet.Length);
-					var list = new List<byte>();
-
-					while (ReadByte())
-					{
-						var b = _queue.Dequeue();
-						if (b == 22)
-						{
-							continue;
-						}
-						if (b == 21)
-							throw new IOException("Invalid packet checksum or form of messsage.");
-						list.Add(b);
-					}
-
-					list.Add(_queue.Dequeue());
-					var buffer = list.ToArray();
-					response = responseFactory(buffer);
-					lastStatusBytes = list.Skip(list.IndexOf(0x04) + 1).Take(6).ToArray();
-					break;
-				}
-				catch (Exception)
-				{
-					if (r >= 2)
-                         throw;
-					_queue.Clear();
-				}
+				_communicator.SendMessage(new ReadStatusCommand(), bytes => null, 32);
+				_innerReadStatusExecuted = true;
 			}
+			var response =  _communicator.SendMessage(msg, responseFactory, _sequence);
 			_sequence += 1;
 			if (_sequence > 254)
 				_sequence = 32;
-			if (msg.Command != 74)
-				CheckStatusOnErrors(lastStatusBytes);
 			return response;
 		}
-
-		private void CheckStatusOnErrors(byte[] statusBytes)
-		{
-			if (statusBytes == null)
-				throw new ArgumentNullException("statusBytes");
-			if (statusBytes.Length == 0)
-				throw new ArgumentException("Argument is empty collection", "statusBytes");
-			if ((statusBytes[0] & 0x20) > 0)
-				throw new FiscalIOException("General error - this is OR of all errors marked with #");
-			if ((statusBytes[0] & 0x2) > 0)
-				throw new FiscalIOException("# Command code is invalid.");
-			if ((statusBytes[0] & 0x1) > 0)
-				throw new FiscalIOException("# Syntax error.");
-			if ((statusBytes[1] & 0x2) > 0)
-				throw new FiscalIOException("# Command is not permitted.");
-			if ((statusBytes[1] & 0x1) > 0)
-				throw new FiscalIOException("# Overflow during command execution.");
-			if ((statusBytes[2] & 0x1) > 0)
-				throw new FiscalIOException("# End of paper.");
-			if ((statusBytes[4] & 0x20) > 0)
-				throw new FiscalIOException(" OR of all errors marked with ‘*’ from Bytes 4 and 5.");
-			if ((statusBytes[4] & 0x10) > 0)
-				throw new FiscalIOException("* Fiscal memory is full.");
-			if ((statusBytes[4] & 0x1) > 0)
-				throw new FiscalIOException("* Error while writing in FM.");
-		}
-
-
-		/// <summary> 
-		/// Changes port name at runtime. 
-		/// </summary> 
-		/// <param name="portName">Name of the serial port.</param> 
-		public void ChangePort(string portName)
-		{
-			_port.Close();
-			_port.PortName = portName;
-			_port.Open();
-		}
-
-
 
 		/// <summary>
 		/// Executes custom command implementation and returns predefined custom response.
@@ -163,7 +72,7 @@ namespace KasaGE
 		/// <returns>T</returns>
 		public T ExecuteCustomCommand<T>(WrappedMessage cmd) where T : FiscalResponse
 		{
-			return (T)SendMessage(cmd,
+			return (T)ExecuteCommand(cmd,
 				bytes => (FiscalResponse)Activator.CreateInstance(typeof(T), new object[] { bytes }));
 		}
 
@@ -175,7 +84,7 @@ namespace KasaGE
 		/// <returns>CommonFiscalResponse</returns>
 		public CommonFiscalResponse OpenNonFiscalReceipt()
 		{
-			return (CommonFiscalResponse)SendMessage(new OpenNonFiscalReceiptCommand()
+			return (CommonFiscalResponse)ExecuteCommand(new OpenNonFiscalReceiptCommand()
 				, bytes => new CommonFiscalResponse(bytes));
 		}
 
@@ -186,7 +95,7 @@ namespace KasaGE
 		/// <returns></returns>
 		public CommonFiscalResponse AddTextToNonFiscalReceipt(string text)
 		{
-			return (CommonFiscalResponse)SendMessage(new AddTextToNonFiscalReceiptCommand(text)
+			return (CommonFiscalResponse)ExecuteCommand(new AddTextToNonFiscalReceiptCommand(text)
 				, bytes => new CommonFiscalResponse(bytes));
 		}
 
@@ -196,20 +105,20 @@ namespace KasaGE
 		/// <returns>CommonFiscalResponse</returns>
 		public CommonFiscalResponse CloseNonFiscalReceipt()
 		{
-			return (CommonFiscalResponse)SendMessage(new CloseNonFiscalReceiptCommand()
+			return (CommonFiscalResponse)ExecuteCommand(new CloseNonFiscalReceiptCommand()
 				, bytes => new CommonFiscalResponse(bytes));
 		}
 
-        #endregion
+		#endregion
 
-        #region FiscalCommands
+		#region FiscalCommands
 
 
 
-        public SubTotalResponse SubTotal()
-        {
-            return (SubTotalResponse)SendMessage(new SubTotalCommand(), bytes => new SubTotalResponse(bytes));
-        }
+		public SubTotalResponse SubTotal()
+		{
+			return (SubTotalResponse)ExecuteCommand(new SubTotalCommand(), bytes => new SubTotalResponse(bytes));
+		}
 
 		/// <summary>
 		/// Opens Sales Fiscal Receipt
@@ -219,7 +128,7 @@ namespace KasaGE
 		/// <returns>OpenFiscalReceiptResponse</returns>
 		public OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd)
 		{
-			return (OpenFiscalReceiptResponse)SendMessage(new OpenFiscalReceiptCommand(opCode, opPwd)
+			return (OpenFiscalReceiptResponse)ExecuteCommand(new OpenFiscalReceiptCommand(opCode, opPwd)
 				, bytes => new OpenFiscalReceiptResponse(bytes));
 		}
 
@@ -232,7 +141,7 @@ namespace KasaGE
 		/// <returns>OpenFiscalReceiptResponse</returns>
 		public OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd, ReceiptType type)
 		{
-			return (OpenFiscalReceiptResponse)SendMessage(new OpenFiscalReceiptCommand(opCode, opPwd, (int)type)
+			return (OpenFiscalReceiptResponse)ExecuteCommand(new OpenFiscalReceiptCommand(opCode, opPwd, (int)type)
 				, bytes => new OpenFiscalReceiptResponse(bytes));
 		}
 
@@ -246,7 +155,7 @@ namespace KasaGE
 		/// <returns>OpenFiscalReceiptResponse</returns>
 		public OpenFiscalReceiptResponse OpenFiscalReceipt(string opCode, string opPwd, ReceiptType type, int tillNumber)
 		{
-			return (OpenFiscalReceiptResponse)SendMessage(new OpenFiscalReceiptCommand(opCode, opPwd, (int)type, tillNumber)
+			return (OpenFiscalReceiptResponse)ExecuteCommand(new OpenFiscalReceiptCommand(opCode, opPwd, (int)type, tillNumber)
 				, bytes => new OpenFiscalReceiptResponse(bytes));
 		}
 
@@ -261,7 +170,7 @@ namespace KasaGE
 		/// <returns>RegisterSaleResponse</returns>
 		public RegisterSaleResponse RegisterSale(string pluName, decimal price, decimal quantity, int departmentNumber, TaxCode taxCode = TaxCode.A)
 		{
-			return (RegisterSaleResponse)SendMessage(
+			return (RegisterSaleResponse)ExecuteCommand(
 				new RegisterSaleCommand(pluName
 										, (int)taxCode
 										, price
@@ -283,7 +192,7 @@ namespace KasaGE
 		/// <returns>RegisterSaleResponse</returns>
 		public RegisterSaleResponse RegisterSale(string pluName, decimal price, decimal quantity, int departmentNumber, DiscountType discountType, decimal discountValue, TaxCode taxCode = TaxCode.A)
 		{
-			return (RegisterSaleResponse)SendMessage(
+			return (RegisterSaleResponse)ExecuteCommand(
 				new RegisterSaleCommand(pluName
 										, (int)taxCode
 										, price
@@ -302,7 +211,7 @@ namespace KasaGE
 		/// <returns>RegisterSaleResponse</returns>
 		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity)
 		{
-			return (RegisterSaleResponse)SendMessage(new RegisterProgrammedItemSaleCommand(pluCode, quantity)
+			return (RegisterSaleResponse)ExecuteCommand(new RegisterProgrammedItemSaleCommand(pluCode, quantity)
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 		/// <summary>
@@ -317,8 +226,13 @@ namespace KasaGE
 		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity, decimal price,
 			DiscountType discountType, decimal discountValue)
 		{
+<<<<<<< HEAD
+			return (RegisterSaleResponse)ExecuteCommand(
+				new RegisterProgrammedItemSaleCommand(pluCode, price, quantity, (int)discountType, discountValue)
+=======
 			return (RegisterSaleResponse)SendMessage(
 				new RegisterProgrammedItemSaleCommand(pluCode, quantity, price, (int)discountType, discountValue)
+>>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 
@@ -329,37 +243,37 @@ namespace KasaGE
 		/// <returns>CalculateTotalResponse</returns>
 		public CalculateTotalResponse Total(PaymentMode paymentMode = PaymentMode.Cash)
 		{
-			return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, 0)
+			return (CalculateTotalResponse)ExecuteCommand(new CalculateTotalCommand((int)paymentMode, 0)
 				, bytes => new CalculateTotalResponse(bytes));
 		}
 
-        /// <summary>
+		/// <summary>
 		/// Payments and calculation of the total sum
 		/// </summary>
 		/// <param name="paymentMode"> Type of payment. </param>
-        /// <param name="paymentMode"> Amount to pay (0.00 - 9999999.99). Default: the residual sum of the receipt; </param>
+		/// <param name="paymentMode"> Amount to pay (0.00 - 9999999.99). Default: the residual sum of the receipt; </param>
 		/// <returns>CalculateTotalResponse</returns>
 		public CalculateTotalResponse Total(PaymentMode paymentMode, decimal cashMoney)
-        {
-            return (CalculateTotalResponse)SendMessage(new CalculateTotalCommand((int)paymentMode, cashMoney)
-                , bytes => new CalculateTotalResponse(bytes));
-        }
-
-        /// <summary>
-        /// All void of a fiscal receipt. <br/>
-        /// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
-        /// </summary>
-        /// <returns>VoidOpenFiscalReceiptResponse</returns>
-        public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
 		{
-			return (VoidOpenFiscalReceiptResponse)SendMessage(new VoidOpenFiscalReceiptCommand()
+			return (CalculateTotalResponse)ExecuteCommand(new CalculateTotalCommand((int)paymentMode, cashMoney)
+				, bytes => new CalculateTotalResponse(bytes));
+		}
+
+		/// <summary>
+		/// All void of a fiscal receipt. <br/>
+		/// <bold>Note:The receipt will be closed as a non fiscal receipt. The slip number (unique number of the fiscal receipt) will not be increased.</bold>
+		/// </summary>
+		/// <returns>VoidOpenFiscalReceiptResponse</returns>
+		public VoidOpenFiscalReceiptResponse VoidOpenFiscalReceipt()
+		{
+			return (VoidOpenFiscalReceiptResponse)ExecuteCommand(new VoidOpenFiscalReceiptCommand()
 				, bytes => new VoidOpenFiscalReceiptResponse(bytes));
 		}
 
 
 		public AddTextToFiscalReceiptResponse AddTextToFiscalReceipt(string text)
 		{
-			return (AddTextToFiscalReceiptResponse)SendMessage(new AddTextToFiscalReceiptCommand(text)
+			return (AddTextToFiscalReceiptResponse)ExecuteCommand(new AddTextToFiscalReceiptCommand(text)
 				, bytes => new AddTextToFiscalReceiptResponse(bytes));
 		}
 
@@ -369,7 +283,7 @@ namespace KasaGE
 		/// <returns>CloseFiscalReceiptResponse</returns>
 		public CloseFiscalReceiptResponse CloseFiscalReceipt()
 		{
-			return (CloseFiscalReceiptResponse)SendMessage(new CloseFiscalReceiptCommand()
+			return (CloseFiscalReceiptResponse)ExecuteCommand(new CloseFiscalReceiptCommand()
 				, bytes => new CloseFiscalReceiptResponse(bytes));
 		}
 
@@ -380,7 +294,7 @@ namespace KasaGE
 		/// <returns>GetLastFiscalEntryInfoResponse</returns>
 		public GetLastFiscalEntryInfoResponse GetLastFiscalEntryInfo(FiscalEntryInfoType type = FiscalEntryInfoType.CashDebit)
 		{
-			return (GetLastFiscalEntryInfoResponse)SendMessage(new GetLastFiscalEntryInfoCommand((int)type)
+			return (GetLastFiscalEntryInfoResponse)ExecuteCommand(new GetLastFiscalEntryInfoCommand((int)type)
 				, bytes => new GetLastFiscalEntryInfoResponse(bytes));
 		}
 
@@ -392,19 +306,19 @@ namespace KasaGE
 		/// <returns>CashInCashOutResponse</returns>
 		public CashInCashOutResponse CashInCashOutOperation(Cash operationType, decimal amount)
 		{
-			return (CashInCashOutResponse)SendMessage(new CashInCashOutCommand((int)operationType, amount)
+			return (CashInCashOutResponse)ExecuteCommand(new CashInCashOutCommand((int)operationType, amount)
 				, bytes => new CashInCashOutResponse(bytes));
 		}
 		#endregion
 
-		#region other
+		#region other commands
 		/// <summary>
 		/// Reads the status of the device.
 		/// </summary>
 		/// <returns>ReadStatusResponse</returns>
 		public ReadStatusResponse ReadStatus()
 		{
-			return (ReadStatusResponse)SendMessage(new ReadStatusCommand()
+			return (ReadStatusResponse)ExecuteCommand(new ReadStatusCommand()
 				, bytes => new ReadStatusResponse(bytes));
 		}
 
@@ -415,7 +329,7 @@ namespace KasaGE
 		/// <returns>EmptyFiscalResponse</returns>
 		public EmptyFiscalResponse FeedPaper(int lines = 1)
 		{
-			return (EmptyFiscalResponse)SendMessage(new FeedPaperCommand(lines)
+			return (EmptyFiscalResponse)ExecuteCommand(new FeedPaperCommand(lines)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
@@ -426,7 +340,7 @@ namespace KasaGE
 		/// <returns>EmptyFiscalResponse</returns>
 		public EmptyFiscalResponse PrintBuffer()
 		{
-			return (EmptyFiscalResponse)SendMessage(new FeedPaperCommand(0)
+			return (EmptyFiscalResponse)ExecuteCommand(new FeedPaperCommand(0)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
@@ -437,7 +351,7 @@ namespace KasaGE
 		/// <returns>ReadErrorResponse</returns>
 		public ReadErrorResponse ReadError(string errorCode)
 		{
-			return (ReadErrorResponse)SendMessage(new ReadErrorCommand(errorCode)
+			return (ReadErrorResponse)ExecuteCommand(new ReadErrorCommand(errorCode)
 				, bytes => new ReadErrorResponse(bytes));
 		}
 
@@ -449,7 +363,7 @@ namespace KasaGE
 		/// <returns>EmptyFiscalResponse</returns>
 		public EmptyFiscalResponse PlaySound(int frequency, int interval)
 		{
-			return (EmptyFiscalResponse)SendMessage(new PlaySoundCommand(frequency, interval)
+			return (EmptyFiscalResponse)ExecuteCommand(new PlaySoundCommand(frequency, interval)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
@@ -460,7 +374,7 @@ namespace KasaGE
 		/// <returns>PrintReportResponse</returns>
 		public PrintReportResponse PrintReport(ReportType type)
 		{
-			return (PrintReportResponse)SendMessage(new PrintReportCommand(type.ToString())
+			return (PrintReportResponse)ExecuteCommand(new PrintReportCommand(type.ToString())
 				, bytes => new PrintReportResponse(bytes));
 		}
 
@@ -471,7 +385,7 @@ namespace KasaGE
 		/// <returns>EmptyFiscalResponse</returns>
 		public EmptyFiscalResponse OpenDrawer(int impulseLength)
 		{
-			return (EmptyFiscalResponse)SendMessage(new OpenDrawerCommand(impulseLength)
+			return (EmptyFiscalResponse)ExecuteCommand(new OpenDrawerCommand(impulseLength)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
@@ -483,7 +397,7 @@ namespace KasaGE
 		/// <returns>EmptyFiscalResponse</returns>
 		public EmptyFiscalResponse SetDateTime(DateTime dateTime)
 		{
-			return (EmptyFiscalResponse)SendMessage(new SetDateTimeCommand(dateTime)
+			return (EmptyFiscalResponse)ExecuteCommand(new SetDateTimeCommand(dateTime)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
 
@@ -493,7 +407,7 @@ namespace KasaGE
 		/// <returns>ReadDateTimeResponse</returns>
 		public ReadDateTimeResponse ReadDateTime()
 		{
-			return (ReadDateTimeResponse)SendMessage(new ReadDateTimeCommand()
+			return (ReadDateTimeResponse)ExecuteCommand(new ReadDateTimeCommand()
 				, bytes => new ReadDateTimeResponse(bytes));
 		}
 
@@ -505,7 +419,7 @@ namespace KasaGE
 		{
 			return
 				(GetStatusOfCurrentReceiptResponse)
-					SendMessage(new GetStatusOfCurrentReceiptCommand()
+					ExecuteCommand(new GetStatusOfCurrentReceiptCommand()
 						, bytes => new GetStatusOfCurrentReceiptResponse(bytes));
 		}
 
@@ -521,12 +435,44 @@ namespace KasaGE
 		/// <param name="quantity"></param>
 		/// <param name="priceType"></param>
 		/// <returns></returns>
-		public EmptyFiscalResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
+		public EmptyFiscalResponse ProgramItem(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice, string barcode = "")
 		{
-			return (EmptyFiscalResponse)SendMessage(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType)
+			return (EmptyFiscalResponse)ExecuteCommand(new ProgramItemCommand(name, plu, taxGr, dep, group, price, quantity, priceType, barcode)
 				, bytes => new EmptyFiscalResponse(bytes));
 		}
+		public ReadPluDataResponse ReadPluData(string option, int plu)
+		{
+			return (ReadPluDataResponse)ExecuteCommand(new ReadPluDataCommand(option, plu)
+				, bytes => new ReadPluDataResponse(bytes));
+		}
 
+		public ReadPluDataResponse DellPluData(string option, int plu_1, int plu_2)
+		{
+			return (ReadPluDataResponse)ExecuteCommand(new DellPluDataCommand(option, plu_1, plu_2)
+				, bytes => new ReadPluDataResponse(bytes));
+		}
+		public ReadPluDataResponse ReadNextPluData(string option)
+		{
+			return (ReadPluDataResponse)ExecuteCommand(new ReadNextPluDataCommand(option)
+				, bytes => new ReadPluDataResponse(bytes));
+
+<<<<<<< HEAD
+		}
+		public InfoPluDataResponse InfoPluData(string option)
+		{
+			return (InfoPluDataResponse)ExecuteCommand(new InfoPluDataCommand(option)
+				, bytes => new InfoPluDataResponse(bytes));
+
+		}
+		public ProgramingResponse Programing(string commandName, int index, string value)
+		{
+			return (ProgramingResponse)ExecuteCommand(new ProgramingCommand(commandName, index, value)
+				, bytes => new ProgramingResponse(bytes));
+		}
+		#endregion
+	}
+}
+=======
         /// <summary>
         /// Programming. #255
         /// </summary>
@@ -546,3 +492,4 @@ namespace KasaGE
         #endregion
     }
 }
+>>>>>>> 21a968de89d08550ecfeff2488ada42c26658839

@@ -9,10 +9,10 @@ namespace KasaGE.Commands
 {
     internal class ProgramItemCommand : WrappedMessage
     {
-        public ProgramItemCommand(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice)
+        public ProgramItemCommand(string name, int plu, TaxGr taxGr, int dep, int group, decimal price, decimal quantity = 9999, PriceType priceType = PriceType.FixedPrice, string Bar1="0")
         {
             Command = 107;
-            Data = (new object[] { "P", plu, taxGr, dep, group, (int)priceType, price, "", quantity, "", "", "", "", name }).StringJoin("\t");
+            Data = (new object[] { "P", plu, taxGr, dep, group, (int)priceType, price, "", quantity, Bar1, "", "", "", name }).StringJoin("\t");
         }
         public override int Command { get; set;}
 

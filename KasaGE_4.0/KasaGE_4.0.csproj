@@ -17,21 +17,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Users\root\Desktop\4.0\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
-    <DocumentationFile>bin\Debug\KasaGE.XML</DocumentationFile>
+    <DocumentationFile>C:\Users\root\Desktop\4.0\KasaGE.XML</DocumentationFile>
     <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Users\root\Desktop\Kasa.GE_.NET-SDK_LatestBuilds\KasaGE-4.0\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
+    <DocumentationFile>C:\Users\root\Desktop\Kasa.GE_.NET-SDK_LatestBuilds\KasaGE-4.0\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -39,6 +39,15 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+<<<<<<< HEAD
+=======
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+>>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -69,6 +78,21 @@
     </Compile>
     <Compile Include="..\kasage_2.0\commands\FeedPaperCommand.cs">
       <Link>Commands\FeedPaperCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\commands\DellPluDataCommand.cs">
+      <Link>Commands\DellPluDataCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\commands\InfoPluDataCommand.cs">
+      <Link>Commands\InfoPluDataCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\commands\ProgramingCommand.cs">
+      <Link>Commands\ProgramingCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\commands\ReadNextPluDataCommand.cs">
+      <Link>Commands\ReadNextPluDataCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\commands\ReadPluDataCommand.cs">
+      <Link>Commands\ReadPluDataCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\GetLastFiscalEntryInfoCommand.cs">
       <Link>Commands\GetLastFiscalEntryInfoCommand.cs</Link>
@@ -106,7 +130,7 @@
     <Compile Include="..\kasage_2.0\commands\ReadStatusCommand.cs">
       <Link>Commands\ReadStatusCommand.cs</Link>
     </Compile>
-    <Compile Include="..\KasaGE_2.0\Commands\RegisterProgrammedItemSaleCommand.cs">
+    <Compile Include="..\kasage_2.0\Commands\RegisterProgrammedItemSaleCommand.cs">
       <Link>Commands\RegisterProgrammedItemSaleCommand.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\commands\RegisterSaleCommand.cs">
@@ -115,11 +139,17 @@
     <Compile Include="..\kasage_2.0\commands\SetDateTimeCommand.cs">
       <Link>Commands\SetDateTimeCommand.cs</Link>
     </Compile>
+    <Compile Include="..\kasage_2.0\commands\VoidOpenFiscalReceiptCommand.cs">
+      <Link>Commands\VoidOpenFiscalReceiptCommand.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\commands\SubTotalCommand.cs">
       <Link>Commands\SubTotalCommand.cs</Link>
     </Compile>
-    <Compile Include="..\kasage_2.0\commands\VoidOpenFiscalReceiptCommand.cs">
-      <Link>Commands\VoidOpenFiscalReceiptCommand.cs</Link>
+    <Compile Include="..\kasage_2.0\Communicators\LANCommunicator.cs">
+      <Link>Communicators\LANCommunicator.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\Communicators\SerialCommunicator.cs">
+      <Link>Communicators\SerialCommunicator.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\core\FiscalIOException.cs">
       <Link>Core\FiscalIOException.cs</Link>
@@ -133,8 +163,14 @@
     <Compile Include="..\kasage_2.0\core\IWrappedMessage.cs">
       <Link>Core\IWrappedMessage.cs</Link>
     </Compile>
+    <Compile Include="..\kasage_2.0\core\ICommunicate.cs">
+      <Link>Core\ICommunicate.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\core\WrappedMessage.cs">
       <Link>Core\WrappedMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\Helpers\ThrowErrorOnBadStatus.cs">
+      <Link>Helpers\ThrowErrorOnBadStatus.cs</Link>
     </Compile>
     <Compile Include="..\KasaGE_2.0\Dp25.cs">
       <Link>Dp25.cs</Link>
@@ -184,11 +220,20 @@
     <Compile Include="..\kasage_2.0\responses\RegisterSaleResponse.cs">
       <Link>Responses\RegisterSaleResponse.cs</Link>
     </Compile>
+    <Compile Include="..\kasage_2.0\responses\VoidOpenFiscalReceiptResponse.cs">
+      <Link>Responses\VoidOpenFiscalReceiptResponse.cs</Link>
+    </Compile>
     <Compile Include="..\kasage_2.0\responses\SubTotalResponse.cs">
       <Link>Responses\SubTotalResponse.cs</Link>
     </Compile>
-    <Compile Include="..\kasage_2.0\responses\VoidOpenFiscalReceiptResponse.cs">
-      <Link>Responses\VoidOpenFiscalReceiptResponse.cs</Link>
+    <Compile Include="..\kasage_2.0\responses\InfoPluDataResponse.cs">
+      <Link>Responses\InfoPluDataResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\responses\ProgramingResponse.cs">
+      <Link>Responses\ProgramingResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\kasage_2.0\responses\ReadPluDataResponse.cs">
+      <Link>Responses\ReadPluDataResponse.cs</Link>
     </Compile>
     <Compile Include="..\kasage_2.0\utils\Extensions.cs">
       <Link>Utils\Extensions.cs</Link>

@@ -47,7 +47,11 @@ namespace SDK_Usage_SampleApp
             var messenger = new MessageAggregator();
 
             messenger.GetStream<SelectedPortChangedEvent>()
-                    .Subscribe(e => _ecr.ChangePort(e.PortName));
+                    .Subscribe(e =>
+                    {
+	                    MessageBox.Show(
+		                    "ChangePort method removed from API, try to set the portname manually in code AppBootstrapper.cs:line 43");
+                    });
 
             batch.AddExportedValue<IWindowManager>(new WindowManager());
             batch.AddExportedValue<IMessageAggregator>(messenger);

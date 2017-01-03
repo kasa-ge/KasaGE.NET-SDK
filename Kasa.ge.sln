@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK_Usage_SampleApp", "SDK_Usage_SampleApp\SDK_Usage_SampleApp.csproj", "{71A34AF1-1157-4DE1-8FC9-C7A671C995F2}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasaGE_4.5", "KasaGE_4.5\KasaGE_4.5.csproj", "{CD6AFC81-ECAB-4CF9-B9B7-6EA12C6A49B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KasaGE_4.0", "KasaGE_4.0\KasaGE_4.0.csproj", "{C85CC685-3873-4B5E-8BFC-DFFE5007E57C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D3A5F1DE-DB41-40D4-AE27-202D803A5946}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{C85CC685-3873-4B5E-8BFC-DFFE5007E57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85CC685-3873-4B5E-8BFC-DFFE5007E57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85CC685-3873-4B5E-8BFC-DFFE5007E57C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3A5F1DE-DB41-40D4-AE27-202D803A5946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3A5F1DE-DB41-40D4-AE27-202D803A5946}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3A5F1DE-DB41-40D4-AE27-202D803A5946}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3A5F1DE-DB41-40D4-AE27-202D803A5946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
