@@ -39,15 +39,6 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-<<<<<<< HEAD
-=======
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
->>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />

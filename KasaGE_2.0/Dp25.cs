@@ -60,7 +60,7 @@ namespace KasaGE
 			var response =  _communicator.SendMessage(msg, responseFactory, _sequence);
 			_sequence += 1;
 			if (_sequence > 254)
-				_sequence = 32;
+				_sequence = 33;
 			return response;
 		}
 
@@ -226,13 +226,8 @@ namespace KasaGE
 		public RegisterSaleResponse RegisterProgrammedItemSale(int pluCode, decimal quantity, decimal price,
 			DiscountType discountType, decimal discountValue)
 		{
-<<<<<<< HEAD
 			return (RegisterSaleResponse)ExecuteCommand(
 				new RegisterProgrammedItemSaleCommand(pluCode, price, quantity, (int)discountType, discountValue)
-=======
-			return (RegisterSaleResponse)SendMessage(
-				new RegisterProgrammedItemSaleCommand(pluCode, quantity, price, (int)discountType, discountValue)
->>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
 				, bytes => new RegisterSaleResponse(bytes));
 		}
 
@@ -456,7 +451,6 @@ namespace KasaGE
 			return (ReadPluDataResponse)ExecuteCommand(new ReadNextPluDataCommand(option)
 				, bytes => new ReadPluDataResponse(bytes));
 
-<<<<<<< HEAD
 		}
 		public InfoPluDataResponse InfoPluData(string option)
 		{
@@ -469,27 +463,22 @@ namespace KasaGE
 			return (ProgramingResponse)ExecuteCommand(new ProgramingCommand(commandName, index, value)
 				, bytes => new ProgramingResponse(bytes));
 		}
+		/// <summary>
+		/// Programming. #255
+		/// </summary>
+		/// <param name="name">Variable name</param>
+		/// <param name="index">Used for index if variable is array. If variable is not array, "Index" must be left blank</param>
+		/// <param name="value">If this parameter is blank, ECR will return current value (Answer(2)). If the value is set, then ECR will program this value (Answer(1))</param>
+		/// <returns>ProgrammingResponse</returns>
+		public ProgrammingResponse Programming(string name, string index, string value)
+		{
+			return (ProgrammingResponse)ExecuteCommand(
+				new ProgrammingCommand(name
+										, index
+										, value)
+				, bytes => new ProgrammingResponse(bytes));
+		}
 		#endregion
+
 	}
 }
-=======
-        /// <summary>
-        /// Programming. #255
-        /// </summary>
-        /// <param name="name">Variable name</param>
-        /// <param name="index">Used for index if variable is array. If variable is not array, "Index" must be left blank</param>
-        /// <param name="value">If this parameter is blank, ECR will return current value (Answer(2)). If the value is set, then ECR will program this value (Answer(1))</param>
-        /// <returns>ProgrammingResponse</returns>
-        public ProgrammingResponse Programming(string name, string index, string value)
-        {
-            return (ProgrammingResponse)SendMessage(
-                new ProgrammingCommand(name
-                                        , index
-                                        , value)
-                , bytes => new ProgrammingResponse(bytes));
-        }
-
-        #endregion
-    }
-}
->>>>>>> 21a968de89d08550ecfeff2488ada42c26658839

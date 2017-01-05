@@ -16,20 +16,20 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Users\root\Desktop\2.0\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;DOTNET2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>C:\Users\root\Desktop\2.0\KasaGE.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Users\root\Desktop\Kasa.GE_.NET-SDK_LatestBuilds\KasaGE-2.0\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE;DOTNET2</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>C:\Users\root\Desktop\Kasa.GE_.NET-SDK_LatestBuilds\KasaGE-2.0\KasaGE.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\KasaGE.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -37,15 +37,12 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-<<<<<<< HEAD
-=======
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\resources\KasaGE-Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
->>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
   <ItemGroup>
     <Reference Include="LinqBridge, Version=1.3.0.0, Culture=neutral, PublicKeyToken=c2b14eb747628076, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqBridge.1.3.0\lib\net20\LinqBridge.dll</HintPath>
@@ -106,11 +103,8 @@
     <Compile Include="Responses\InfoPluDataResponse.cs" />
     <Compile Include="Responses\OpenFiscalReceiptResponse.cs" />
     <Compile Include="Responses\PrintReportResponse.cs" />
-<<<<<<< HEAD
     <Compile Include="Responses\ProgramingResponse.cs" />
-=======
     <Compile Include="Responses\ProgrammingResponse.cs" />
->>>>>>> 21a968de89d08550ecfeff2488ada42c26658839
     <Compile Include="Responses\ReadDateTimeResponse.cs" />
     <Compile Include="Responses\ReadErrorResponse.cs" />
     <Compile Include="Responses\ReadPluDataResponse.cs" />
